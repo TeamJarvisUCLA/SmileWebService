@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
+    <persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
+    	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+        
+        <class>lights.seguridad.dto.Rol</class>
+        <class>lights.seguridad.dto.Usuario</class>
+        <class>lights.seguridad.dto.Sesion</class>
+        <class>lights.seguridad.dto.Tabla</class>
+        <class>lights.seguridad.dto.MetodoDao</class>
+        <class>lights.seguridad.dto.Auditoria</class>
+        <class>lights.seguridad.dto.IconSclass</class>
+        <class>lights.seguridad.dto.Sclass</class>
+        <class>lights.seguridad.dto.PermisoSeguridad</class>
+        <class>lights.seguridad.dto.Perfil</class>
+        <class>lights.seguridad.dto.NodoMenu</class>
+        <class>lights.seguridad.dto.UsuarioRol</class>
+        <class>lights.seguridad.dto.Vista</class>
+        <class>lights.seguridad.dto.VistaOperacionBasico</class>
+        <class>lights.seguridad.dto.VistaOperacionCustom</class>
+        <class>lights.seguridad.dto.MensajeSistema</class>
+        <class>lights.seguridad.dto.DispositivoAndroid</class>
+        
+        <class>lights.smile.dto.Modelo</class>
+        
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Promo54" />
+		    <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+		    <property name="javax.persistence.jdbc.user" value="postgres" />
+		    <property name="javax.persistence.jdbc.password" value="123" />
+            
+            <!-- Solo para debug. Comentar para ambientes de Producción -->
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.use_sql_comments" value="false"/>
+            
+			<!--
+	        <property name="hibernate.cache.use_query_cache" value="false"/>
+         
+             
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+             -->
+        </properties>
+    </persistence-unit>
+</persistence>
