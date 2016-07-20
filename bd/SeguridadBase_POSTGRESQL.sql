@@ -75,7 +75,7 @@ create table tb_usuario
    clave                character varying(300) not null,
    correo               character varying(60)  not null,
    estatus              character varying(1)   not null,
-   fk_perfil            numeric(9),
+   fk_rol               numeric(9),
    constraint pk_tb_usuario primary key (id_usuario)
 );
 
@@ -94,24 +94,6 @@ create table tb_rol
    id_rol               numeric(9)                   not null DEFAULT nextval('tb_rol_id_seq'::regclass),
    nombre               character varying(100) not null,
    constraint pk_tb_rol primary key (id_rol)
-);
-
-/*==============================================================*/
-/* Table: tb_usuario_rol                                        */
-/*==============================================================*/
-CREATE SEQUENCE tb_usuario_rol_id_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1;
-  
-create table tb_usuario_rol 
-(
-   id_usuario_rol       numeric(9)              not null DEFAULT nextval('tb_usuario_rol_id_seq'::regclass),
-   fk_usuario           numeric(9)              not null,
-   fk_rol               numeric(9)              not null,
-   constraint pk_tb_usuario_rol primary key (id_usuario_rol)
 );
 
 /*==============================================================*/
@@ -322,38 +304,6 @@ CREATE TABLE tb_auditoria
   constraint pk_tb_auditoria PRIMARY KEY(id_auditoria)
 );
 
-/*==============================================================*/
-/* Table: tb_perfil                                             */
-/*==============================================================*/
-CREATE SEQUENCE tb_perfil_id_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1;
-
-create table tb_perfil 
-(
-   id_perfil            numeric(9)             not null DEFAULT nextval('tb_perfil_id_seq'::regclass),
-   identificacion       character varying(35)  not null,
-   nombre               character varying(150) not null,
-   edad                 numeric(2)             not null,
-   sexo                 numeric(1)             not null,
-   fecha_nacimiento     numeric(16)            not null,
-   telefono_1           character varying(25)  not null,
-   telefono_2           character varying(25)  not null,
-   telefono_3           character varying(25)  not null,
-   direccion            character varying(250) not null,
-   pais                 character varying(45)  not null,
-   twitter              character varying(100) not null,
-   instagram            character varying(100) not null,
-   linkedin             character varying(100) not null,
-   constraint pk_tb_perfil primary key (id_perfil)
-);
-
-comment on column tb_perfil.sexo is
-'ENUM:Masculino:Femenino';
-
 alter table tb_sesion
    add constraint fk_tb_sesion_r_tb_usuario foreign key (fk_usuario)
       references tb_usuario (id_usuario);
@@ -367,15 +317,7 @@ alter table tb_mensaje_sistema
       references tb_usuario (id_usuario);
 
 alter table tb_usuario
-   add constraint fk_tb_usuario_r_tb_perfil foreign key (fk_perfil)
-      references tb_perfil (id_perfil);
-      
-alter table tb_usuario_rol
-   add constraint fk_tb_usuario_rol_r_tb_usuario foreign key (fk_usuario)
-      references tb_usuario (id_usuario);
-
-alter table tb_usuario_rol
-   add constraint fk_tb_usuario_rol_r_tb_rol foreign key (fk_rol)
+   add constraint fk_tb_usuario_r_tb_rol foreign key (fk_rol)
       references tb_rol (id_rol);
       
 alter table tb_permiso_seguridad
@@ -440,22 +382,21 @@ alter table tb_auditoria
       
       
       
-INSERT INTO TB_TABLA (nombre) VALUES (1, 'tb_vista_operacion_basico');
-INSERT INTO TB_TABLA (nombre) VALUES (2, 'tb_usuario');
-INSERT INTO TB_TABLA (nombre) VALUES (3, 'tb_permiso_seguridad');
-INSERT INTO TB_TABLA (nombre) VALUES (4, 'tb_icon_sclass');
-INSERT INTO TB_TABLA (nombre) VALUES (5, 'tb_vista_operacion_custom');
-INSERT INTO TB_TABLA (nombre) VALUES (6, 'tb_tabla');
-INSERT INTO TB_TABLA (nombre) VALUES (7, 'tb_usuario_rol');
-INSERT INTO TB_TABLA (nombre) VALUES (8, 'tb_vista');
-INSERT INTO TB_TABLA (nombre) VALUES (9, 'tb_auditoria');
-INSERT INTO TB_TABLA (nombre) VALUES (10, 'tb_sesion');
-INSERT INTO TB_TABLA (nombre) VALUES (11, 'tb_nodo_menu');
-INSERT INTO TB_TABLA (nombre) VALUES (12, 'tb_rol');
-INSERT INTO TB_TABLA (nombre) VALUES (13, 'tb_metodo_dao');
-INSERT INTO TB_TABLA (nombre) VALUES (14, 'tb_mensaje_sistema');
-INSERT INTO TB_TABLA (nombre) VALUES (15, 'tb_perfil');
-INSERT INTO TB_TABLA (nombre) VALUES (16, 'tb_dispositivo_android');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_vista_operacion_basico');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_usuario');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_permiso_seguridad');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_icon_sclass');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_vista_operacion_custom');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_tabla');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_vista');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_auditoria');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_sesion');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_nodo_menu');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_rol');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_metodo_dao');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_mensaje_sistema');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_dispositivo_android');
+INSERT INTO TB_TABLA (nombre) VALUES ('tb_sclass');
 
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('VistaOperacionBasicoService.CONSULTAR_UNO');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('VistaOperacionBasicoService.CONSULTAR_TODOS');
@@ -505,14 +446,6 @@ INSERT INTO TB_METODO_DAO (nombre) VALUES ('TablaService.ELIMINAR');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('TablaService.CONTAR');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('TablaService.INCLUIR');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('TablaService.MODIFICAR');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('UsuarioRolService.CONSULTAR_UNO');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('UsuarioRolService.CONSULTAR_TODOS');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('UsuarioRolService.CONSULTAR_CRITERIOS');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('UsuarioRolService.CONSULTAR_PAGINACION_CRITERIOS');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('UsuarioRolService.ELIMINAR');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('UsuarioRolService.CONTAR');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('UsuarioRolService.INCLUIR');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('UsuarioRolService.MODIFICAR');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('VistaService.CONSULTAR_UNO');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('VistaService.CONSULTAR_TODOS');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('VistaService.CONSULTAR_CRITERIOS');
@@ -569,14 +502,6 @@ INSERT INTO TB_METODO_DAO (nombre) VALUES ('MensajeSistemaService.ELIMINAR');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('MensajeSistemaService.CONTAR');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('MensajeSistemaService.INCLUIR');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('MensajeSistemaService.MODIFICAR');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('PerfilService.CONSULTAR_UNO');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('PerfilService.CONSULTAR_TODOS');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('PerfilService.CONSULTAR_CRITERIOS');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('PerfilService.CONSULTAR_PAGINACION_CRITERIOS');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('PerfilService.ELIMINAR');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('PerfilService.CONTAR');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('PerfilService.INCLUIR');
-INSERT INTO TB_METODO_DAO (nombre) VALUES ('PerfilService.MODIFICAR');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('DispositivoAndroidService.CONSULTAR_UNO');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('DispositivoAndroidService.CONSULTAR_TODOS');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('DispositivoAndroidService.CONSULTAR_CRITERIOS');
@@ -585,6 +510,14 @@ INSERT INTO TB_METODO_DAO (nombre) VALUES ('DispositivoAndroidService.ELIMINAR')
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('DispositivoAndroidService.CONTAR');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('DispositivoAndroidService.INCLUIR');
 INSERT INTO TB_METODO_DAO (nombre) VALUES ('DispositivoAndroidService.MODIFICAR');
+INSERT INTO TB_METODO_DAO (nombre) VALUES ('SclassService.CONSULTAR_UNO');
+INSERT INTO TB_METODO_DAO (nombre) VALUES ('SclassService.CONSULTAR_TODOS');
+INSERT INTO TB_METODO_DAO (nombre) VALUES ('SclassService.CONSULTAR_CRITERIOS');
+INSERT INTO TB_METODO_DAO (nombre) VALUES ('SclassService.CONSULTAR_PAGINACION_CRITERIOS');
+INSERT INTO TB_METODO_DAO (nombre) VALUES ('SclassService.ELIMINAR');
+INSERT INTO TB_METODO_DAO (nombre) VALUES ('SclassService.CONTAR');
+INSERT INTO TB_METODO_DAO (nombre) VALUES ('SclassService.INCLUIR');
+INSERT INTO TB_METODO_DAO (nombre) VALUES ('SclassService.MODIFICAR');
 
 INSERT INTO tb_icon_sclass (nombre) VALUES ('fa fa-stethoscope');
 INSERT INTO tb_icon_sclass (nombre) VALUES ('fa fa-user-md');
@@ -1539,17 +1472,17 @@ INSERT INTO tb_sclass (nombre) VALUES ('black');
 INSERT INTO tb_sclass (nombre) VALUES ('white');
 INSERT INTO tb_sclass (nombre) VALUES ('transparent');
 
-INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Roles', 'Permite la gestión de los roles del Sistema.', 'vista/principalRol.zul');
-INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Usuarios', 'Permite la gestión de los usuarios del Sistema.', 'vista/principalUsuario.zul');
-INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Menú', 'Permite la gestión del menú que podrá ser visualizado en el sistema.', 'vista/seguridad/menu/index.zul');
-INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Mensajes de Sistema', 'Permite enviar mensajes de sistema a los usuarios conectados.', 'vista/principalMensajeSistema.zul');
-INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Usuarios Activos', 'Permite visualizar a los usuarios activos.', 'vista/principalUsuariosActivos.zul');
-INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Permisos', 'Permite modificar los permisos del menú, para cada rol.', 'vista/seguridad/permisos/index.zul');
+INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Roles', 'Permite la gestión de los roles del Sistema.', 'views/seguridad/roles/rolesIndex.zul');
+INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Usuarios', 'Permite la gestión de los usuarios del Sistema.', 'views/seguridad/usuarios/usuariosIndex.zul');
+INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Menú', 'Permite la gestión del menú que podrá ser visualizado en el sistema.', 'views/seguridad/menu/menuIndex.zul');
+INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Mensajes de Sistema', 'Permite enviar mensajes de sistema a los usuarios conectados.', 'views/mensajes/mensajesSistema/mensajesSistemaIndex.zul');
+INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Usuarios Activos', 'Permite visualizar a los usuarios activos.', 'views/seguridad/monitoreo/usuariosActivos/usuariosActivosIndex.zul');
+INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Permisos', 'Permite modificar los permisos del menú, para cada rol.', 'views/seguridad/permisos/permisosIndex.zul');
+INSERT INTO tb_vista (nombre, descripcion, archivo_zul) VALUES ('Botones', 'Permite configurar la apariencia de los botones de las ventanas principales.', 'views/apariencia/botones/botonesIndex.zul');
 
 INSERT INTO tb_vista_operacion_basico (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (1, 1, 284, 'Incluir', 'Incluir', 132);
 INSERT INTO tb_vista_operacion_basico (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (2, 1, 133, 'Modificar', 'Modificar', 188);
 INSERT INTO tb_vista_operacion_basico (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (3, 1, 383, 'Eliminar', 'Eliminar', 6);
-INSERT INTO tb_vista_operacion_basico (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (4, 1, 146, 'Consultar', 'Consultar', 76);
 INSERT INTO tb_vista_operacion_basico (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (1, 2, 284, 'Incluir', 'Incluir', 132);
 INSERT INTO tb_vista_operacion_basico (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (2, 2, 133, 'Modificar', 'Modificar', 188);
 INSERT INTO tb_vista_operacion_basico (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (4, 2, 146, 'Consultar', 'Consultar', 76);
@@ -1561,6 +1494,7 @@ INSERT INTO tb_vista_operacion_custom (operacion, fk_vista, fk_icon_sclass, tool
 INSERT INTO tb_vista_operacion_custom (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (0, 4, 69, 'Publicar Mensade de Sistema', 'Publicar Mensade de Sistema', 94);
 INSERT INTO tb_vista_operacion_custom (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (6, 5, 488, 'Ver Sesiones del Usuario', 'Ver Sesiones del Usuario', 164);
 INSERT INTO tb_vista_operacion_custom (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (5, 6, 223, 'Modifcar Permisos', 'Modifcar Permisos', 94);
+INSERT INTO tb_vista_operacion_custom (operacion, fk_vista, fk_icon_sclass, tooltiptext, nombre, fk_sclass) VALUES (0, 7, 298, 'Reestablecer Contraseña', 'Reestablecer Contraseña', 122);
 
 
 

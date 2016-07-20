@@ -16,9 +16,7 @@
         <class>lights.seguridad.dto.IconSclass</class>
         <class>lights.seguridad.dto.Sclass</class>
         <class>lights.seguridad.dto.PermisoSeguridad</class>
-        <class>lights.seguridad.dto.Perfil</class>
         <class>lights.seguridad.dto.NodoMenu</class>
-        <class>lights.seguridad.dto.UsuarioRol</class>
         <class>lights.seguridad.dto.Vista</class>
         <class>lights.seguridad.dto.VistaOperacionBasico</class>
         <class>lights.seguridad.dto.VistaOperacionCustom</class>
@@ -33,7 +31,7 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Promo54" />
 		    <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 		    <property name="javax.persistence.jdbc.user" value="postgres" />
-		    <property name="javax.persistence.jdbc.password" value="123" />
+		    <property name="javax.persistence.jdbc.password" value="postgres" />
             
             <!-- Solo para debug. Comentar para ambientes de Producción -->
             <property name="hibernate.show_sql" value="false"/>

@@ -1,8 +1,10 @@
 package lights.seguridad.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -98,6 +100,8 @@ public class NodoMenuServiceM extends FachadaService<NodoMenu> {
 					nodoMenuPrincipal = unirListas(nodoMenuPrincipal, nodoMenuAUnir);
 				}
 				
+				auditar(idSesion, getTable() , AccionEnum.CONSULTAR.ordinal(), getPath().substring(1) + ".CONSULTAR_CRITERIOS", 0, idRoles);
+				
 				return buildAnswerSuccess(nodoMenuPrincipal, SUCCESS_1);
 			}
 		} catch (Exception e) {
@@ -157,7 +161,7 @@ public class NodoMenuServiceM extends FachadaService<NodoMenu> {
 	}
 	
 	public String eliminarEnCascada(Integer idSesion, Integer id) throws Exception {
-		auditar(idSesion, getTable() , AccionEnum.ELIMINAR.ordinal(), getPath().substring(1) + ".ELIMINAR", id, "");
+		auditar(idSesion, getTable() , AccionEnum.CONSULTAR.ordinal(), getPath().substring(1) + ".ELIMINAR", id, "");
 		
 		NodoMenuDAO nodoMenuDAO = new NodoMenuDAO();
 		PermisoSeguridadDAO permisoSeguridadDAO = new PermisoSeguridadDAO();
@@ -189,66 +193,7 @@ public class NodoMenuServiceM extends FachadaService<NodoMenu> {
 				
 				nodoMenuPrincipal.setHijos(buscarTodosLosHijos(nodoMenuPrincipal.getIdNodoMenu(), idRol));
 				
-				
-				
-//				List<NodoMenu> listasDeNodosMenues = new ArrayList<NodoMenu>();
-//				
-//				List<NodoMenu> nodosHijos = nodoMenuDAO.find(0);
-//				
-//				for (NodoMenu nodoMenuHoja : nodosHijos) {
-//					Stack<NodoMenu> pila = new Stack<NodoMenu>();
-//					
-//					pila.push(new NodoMenu(nodoMenuHoja));
-//					
-//					Integer padre = nodoMenuHoja.getFkNodoMenu().getIdNodoMenu();
-//					
-//					NodoMenu nodoMenuPadre = nodoMenuHoja.getFkNodoMenu();
-//					
-//					while(padre != 0) {
-//						if (nodoMenuPadre == null) {
-//							throw new Exception("Error Code: 555-Hay un error en la base de datos. Permisos inaccesibles (Servicios Web)");
-//						}
-//						
-//						pila.push(new NodoMenu(nodoMenuPadre));
-//						
-//						padre = nodoMenuPadre.getFkNodoMenu().getIdNodoMenu();
-//						
-//						nodoMenuPadre = nodoMenuPadre.getFkNodoMenu();
-//					}
-//					
-//					NodoMenu nodoMenuRoot = new NodoMenu();
-//					nodoMenuRoot.setNombre("Raiz");
-//					nodoMenuRoot.setIdNodoMenu(0);
-//					nodoMenuRoot.setTipoNodoMenuEnum(TipoNodoMenuEnum.RAIZ);
-//					
-//					nodoMenuPadre = nodoMenuRoot;
-//					
-//					while(!pila.isEmpty()) {
-//						List<NodoMenu> hAux = new ArrayList<NodoMenu>();
-//						
-//						NodoMenu nodoMenuHijo = pila.pop();
-//						
-//						hAux.add(nodoMenuHijo);
-//						
-//						nodoMenuPadre.setHijos(hAux);
-//						
-//						nodoMenuPadre = nodoMenuHijo;
-//					}
-//					
-//					listasDeNodosMenues.add(nodoMenuRoot);
-//				}
-//				
-//				if (listasDeNodosMenues.size() == 0) {
-//					return buildAnswerWarning("Warning Code: 666-No tiene habilitado funciones dentro del sistema.");
-//				}
-//				
-//				NodoMenu nodoMenuPrincipal = listasDeNodosMenues.get(0);
-//				
-//				listasDeNodosMenues.remove(0);
-//				
-//				for (NodoMenu nodoMenuAUnir: listasDeNodosMenues) {
-//					nodoMenuPrincipal = unirListas(nodoMenuPrincipal, nodoMenuAUnir);
-//				}
+				auditar(idSesion, getTable() , AccionEnum.CONSULTAR.ordinal(), getPath().substring(1) + ".CONSULTAR_TODOS", 0, String.valueOf(idRol));
 				
 				return buildAnswerSuccess(nodoMenuPrincipal, SUCCESS_1);
 			}
@@ -289,8 +234,8 @@ public class NodoMenuServiceM extends FachadaService<NodoMenu> {
 		for (VistaOperacionBasico vistaOperacionBasico : vistasOperacionesBasico) {
 			Operacion operacion = new Operacion(vistaOperacionBasico.getOperacion(),
 					vistaOperacionBasico.getNombre(), 
-					vistaOperacionBasico.getFkIconSclass().getNombre(), 
-					vistaOperacionBasico.getFkSclass().getNombre(), 
+					vistaOperacionBasico.getFkIconSclass(), 
+					vistaOperacionBasico.getFkSclass(), 
 					vistaOperacionBasico.getTooltiptext());
 			
 			operaciones.add(operacion);
@@ -302,8 +247,8 @@ public class NodoMenuServiceM extends FachadaService<NodoMenu> {
 		for (VistaOperacionCustom vistaOperacionCustom : vistasOperacionesCustom) {
 			Operacion operacion = new Operacion(vistaOperacionCustom.getOperacion(),
 					vistaOperacionCustom.getNombre(), 
-					vistaOperacionCustom.getFkIconSclass().getNombre(), 
-					vistaOperacionCustom.getFkSclass().getNombre(), 
+					vistaOperacionCustom.getFkIconSclass(), 
+					vistaOperacionCustom.getFkSclass(), 
 					vistaOperacionCustom.getTooltiptext());
 			
 			operaciones.add(operacion);
@@ -337,8 +282,8 @@ public class NodoMenuServiceM extends FachadaService<NodoMenu> {
 						vistaOperacionCustomDAO.findByVistaAndOperacion(vista.getIdVista(), permisoSeguridad.getOperacion());
 				
 				if (vistaOperacionCustom != null) {
-					operacion.setIconSclass(vistaOperacionCustom.getFkIconSclass().getNombre());
-					operacion.setSclass(vistaOperacionCustom.getFkSclass().getNombre());
+					operacion.setFkIconSclass(vistaOperacionCustom.getFkIconSclass());
+					operacion.setFkSclass(vistaOperacionCustom.getFkSclass());
 					operacion.setTooltiptext(vistaOperacionCustom.getTooltiptext());
 					operacion.setNombre(vistaOperacionCustom.getNombre());
 				}
@@ -347,8 +292,8 @@ public class NodoMenuServiceM extends FachadaService<NodoMenu> {
 						vistaOperacionBasicoDAO.findByVistaAndOperacion(vista.getIdVista(), permisoSeguridad.getOperacion());
 				
 				if (vistaOperacionBasico != null) {
-					operacion.setIconSclass(vistaOperacionBasico.getFkIconSclass().getNombre());
-					operacion.setSclass(vistaOperacionBasico.getFkSclass().getNombre());
+					operacion.setFkIconSclass(vistaOperacionBasico.getFkIconSclass());
+					operacion.setFkSclass(vistaOperacionBasico.getFkSclass());
 					operacion.setTooltiptext(vistaOperacionBasico.getTooltiptext());
 					operacion.setNombre(vistaOperacionBasico.getNombre());
 				}
@@ -359,4 +304,33 @@ public class NodoMenuServiceM extends FachadaService<NodoMenu> {
 		
 		nodoMenu.setOperaciones(new ArrayList<Operacion>(operaciones));
 	}
+	
+	@GET
+	@Path("/countChildrens/{idSesion}/{accessToken}/{idNodoMenuPadre}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathCountChildrens(@PathParam("idSesion") Integer idSesion, 
+			@PathParam("accessToken") String accessToken,
+			@PathParam("idNodoMenuPadre") Integer idNodoMenuPadre) {
+		try {
+			if (validarSesion(idSesion, accessToken)) {
+				return contarHijos(idSesion, idNodoMenuPadre);
+			}
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+		
+		return buildAnswerError(new Exception(ERROR_UNKNOWN));
+	}
+	
+	public String contarHijos(Integer idSesion, Integer idNodoMenuPadre) throws Exception {
+		auditar(idSesion, getTable() , AccionEnum.CONSULTAR.ordinal(), getPath().substring(1) + ".CONTAR", 0, "");
+		
+		Integer count = new NodoMenuDAO().contarHijos(idNodoMenuPadre);
+		
+		Map<String, Object> mapa = new HashMap<String, Object>();
+		
+		mapa.put("count", count);
+		
+		return buildAnswerSuccess(SUCCESS_7, mapa);
+	};
 }

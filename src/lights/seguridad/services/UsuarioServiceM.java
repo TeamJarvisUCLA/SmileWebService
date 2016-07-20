@@ -4,7 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.GET;
@@ -14,24 +13,20 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.google.gson.Gson;
-
 import lights.core.encryptor.UtilEncryptor;
 import lights.core.services.FachadaService;
-import lights.seguridad.dao.PerfilDAO;
-import lights.seguridad.dao.RolDAO;
+import lights.seguridad.dao.PermisoSeguridadDAO;
 import lights.seguridad.dao.SesionDAO;
 import lights.seguridad.dao.UsuarioDAO;
-import lights.seguridad.dto.Perfil;
 import lights.seguridad.dto.Rol;
 import lights.seguridad.dto.Sesion;
 import lights.seguridad.dto.Usuario;
-import lights.seguridad.enums.AccionEnum;
 import lights.seguridad.payload.request.PayloadUsuarioRequest;
+
+import com.google.gson.Gson;
 
 @Path("/UsuarioService")
 public class UsuarioServiceM extends FachadaService<Usuario> {
-
 	@POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -48,32 +43,13 @@ public class UsuarioServiceM extends FachadaService<Usuario> {
 	}
 	
 	@GET
-	@Path("/consultarPorRoles/{idSesion}/{accessToken}/{idRoles}")
+	@Path("/consultarPorRol/{idSesion}/{accessToken}/{idRol}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String pathConsultarPorRoles(@PathParam("idSesion") Integer idSesion, @PathParam("accessToken") String accessToken,
-			@PathParam("idRoles") String idRoles) {
+	public String pathConsultarPorRol(@PathParam("idSesion") Integer idSesion, @PathParam("accessToken") String accessToken,
+			@PathParam("idRol") Integer idRol) {
 		try {
 			if (validarSesion(idSesion, accessToken)) {
-				return buildAnswerSuccess(new UsuarioDAO().findByRoles(idRoles), SUCCESS_2); 
-			}
-		} catch (Exception e) {
-			return buildAnswerError(e);
-		}
-		
-		return buildAnswerError(new Exception(ERROR_UNKNOWN));
-	}
-	
-	@POST
-	@Path("/setNewPerfil")
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String pathSetNewPerfil(String data) {
-		Gson gson = new Gson();
-		
-		PayloadUsuarioRequest request =  gson.fromJson(data, PayloadUsuarioRequest.class);
-		
-		try {
-			if (validarSesion(request.getIdSesion(), request.getAccessToken())) {
-				return setNewPerfil(request.getIdSesion(), request.getObjeto());
+				return buildAnswerSuccess(new UsuarioDAO().findByRol(idRol), SUCCESS_2); 
 			}
 		} catch (Exception e) {
 			return buildAnswerError(e);
@@ -98,19 +74,16 @@ public class UsuarioServiceM extends FachadaService<Usuario> {
 			throw new Exception("Error Code: 009-Este usuario se encuentra deshabilitado. Comuniquese con el administrador.");
 		}
 		
-		List<Rol> roles = new RolDAO().findByUsuario(usuario.getIdUsuario());
+		Rol rol = usuario.getFkRol();
 		
-		if (roles.size() == 0){ 
-			throw new Exception("Error Code: 010-Este usuario no tiene asociado ningÃºn rol dentro del sistema. Comuniquese con el administrador.");
+		if (rol == null) { 
+			throw new Exception("Error Code: 010-Este usuario no tiene asociado ningún rol dentro del sistema. Comuniquese con el administrador.");
 		}
 		
-		String idRoles = "";
+		Integer cantidadPermisos = new PermisoSeguridadDAO().contarDeUnRol(rol.getIdRol());
 		
-		for (Rol rol : roles) {
-			if (idRoles.length() > 0) {
-				idRoles += ",";
-			}
-			idRoles += String.valueOf(rol.getIdRol());
+		if (cantidadPermisos == 0) { 
+			throw new Exception("Error Code: 011-Este usuario, a través de su rol asociado, no tiene permisos dentro del sistema. Comuniquese con el administrador.");
 		}
 		
 		Long time = Calendar.getInstance().getTimeInMillis();
@@ -130,9 +103,8 @@ public class UsuarioServiceM extends FachadaService<Usuario> {
 		parametros.put("idSesion", sesion.getIdSesion());
 		parametros.put("accessToken", sesion.getAccessToken());
 		parametros.put("usuario", usuario);
-		parametros.put("idRoles", idRoles);
 		
-		return buildAnswerSuccess("Success Code: 007-Usuario vÃ¡lido", parametros);
+		return buildAnswerSuccess("Success Code: 007-Usuario válido", parametros);
 	}
 	
 	private String generateAccessToken(String correo) {
@@ -154,23 +126,4 @@ public class UsuarioServiceM extends FachadaService<Usuario> {
 			return "ABC";
 		}
 	}
-
-	public String setNewPerfil(Integer idSesion, Usuario usuario) throws Exception {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		Perfil perfil = new PerfilDAO().save(usuario.getFkPerfil());
-		
-		usuario = usuarioDAO.find(usuario.getIdUsuario());
-		usuario.setFkPerfil(perfil);
-		usuarioDAO.save(usuario);
-		
-		String datos = getDataFromObjectToAuditoria(perfil);
-		
-		Map<String, Object> mapa = new HashMap<String, Object>();
-		
-		mapa.put("idPerfil", perfil.getIdPerfil());
-		
-		auditar(idSesion, getTable() , AccionEnum.INCLUIR.ordinal(), getPath().substring(1) + ".INCLUIR", perfil.getIdPerfil(), datos);
-		
-		return buildAnswerSuccess(SUCCESS_4, mapa);
-	};
 }
