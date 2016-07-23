@@ -1,4 +1,4 @@
-package lights.seguridad.services;
+package ve.smile.seguridad.services;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -7,9 +7,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import lights.core.services.FachadaService;
-import lights.seguridad.dao.PermisoSeguridadDAO;
-import lights.seguridad.dto.PermisoSeguridad;
-import lights.seguridad.enums.AccionEnum;
+import ve.smile.seguridad.dao.PermisoSeguridadDAO;
+import ve.smile.seguridad.dto.PermisoSeguridad;
+import ve.smile.seguridad.enums.AccionEnum;
 
 @Path("/PermisoSeguridadService")
 public class PermisoSeguridadServiceM extends FachadaService<PermisoSeguridad> {

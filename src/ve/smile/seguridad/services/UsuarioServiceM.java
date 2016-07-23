@@ -1,4 +1,4 @@
-package lights.seguridad.services;
+package ve.smile.seguridad.services;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -15,13 +15,13 @@ import javax.ws.rs.core.MediaType;
 
 import lights.core.encryptor.UtilEncryptor;
 import lights.core.services.FachadaService;
-import lights.seguridad.dao.PermisoSeguridadDAO;
-import lights.seguridad.dao.SesionDAO;
-import lights.seguridad.dao.UsuarioDAO;
-import lights.seguridad.dto.Rol;
-import lights.seguridad.dto.Sesion;
-import lights.seguridad.dto.Usuario;
-import lights.seguridad.payload.request.PayloadUsuarioRequest;
+import ve.smile.seguridad.dao.PermisoSeguridadDAO;
+import ve.smile.seguridad.dao.SesionDAO;
+import ve.smile.seguridad.dao.UsuarioDAO;
+import ve.smile.seguridad.dto.Rol;
+import ve.smile.seguridad.dto.Sesion;
+import ve.smile.seguridad.dto.Usuario;
+import ve.smile.seguridad.payload.request.PayloadUsuarioRequest;
 
 import com.google.gson.Gson;
 

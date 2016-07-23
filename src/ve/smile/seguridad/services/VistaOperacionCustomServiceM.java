@@ -1,4 +1,4 @@
-package lights.seguridad.services;
+package ve.smile.seguridad.services;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -8,10 +8,10 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 
 import lights.core.services.FachadaService;
-import lights.seguridad.dao.VistaOperacionCustomDAO;
-import lights.seguridad.dto.VistaOperacionCustom;
-import lights.seguridad.enums.AccionEnum;
-import lights.seguridad.payload.request.PayloadVistaOperacionCustomRequest;
+import ve.smile.seguridad.dao.VistaOperacionCustomDAO;
+import ve.smile.seguridad.dto.VistaOperacionCustom;
+import ve.smile.seguridad.enums.AccionEnum;
+import ve.smile.seguridad.payload.request.PayloadVistaOperacionCustomRequest;
 
 @Path("/VistaOperacionCustomService")
 public class VistaOperacionCustomServiceM extends FachadaService<VistaOperacionCustom> {

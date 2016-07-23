@@ -1,9 +1,9 @@
-package lights.seguridad.services;
+package ve.smile.seguridad.services;
 
 import javax.ws.rs.Path;
 
 import lights.core.services.FachadaService;
-import lights.seguridad.dto.IconSclass;
+import ve.smile.seguridad.dto.IconSclass;
 
 @Path("/IconSclassService")
 public class IconSclassServiceM extends FachadaService<IconSclass> {

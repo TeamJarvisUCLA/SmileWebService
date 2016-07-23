@@ -43,12 +43,6 @@
 		<artifactId>hibernate-jpa-2.1-api</artifactId>
 		<version>1.0.0.Final</version>
 	</dependency>
-
-<dependency>
-		<groupId>SeguridadDatos</groupId>
-		<artifactId>SeguridadDatos</artifactId>
-		<version>0.0.1</version>
-	</dependency>
 	
 	<dependency>
 		<groupId>SmileDatos</groupId>

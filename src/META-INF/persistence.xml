@@ -7,31 +7,31 @@
     <persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
         
-        <class>lights.seguridad.dto.Rol</class>
-        <class>lights.seguridad.dto.Usuario</class>
-        <class>lights.seguridad.dto.Sesion</class>
-        <class>lights.seguridad.dto.Tabla</class>
-        <class>lights.seguridad.dto.MetodoDao</class>
-        <class>lights.seguridad.dto.Auditoria</class>
-        <class>lights.seguridad.dto.IconSclass</class>
-        <class>lights.seguridad.dto.Sclass</class>
-        <class>lights.seguridad.dto.PermisoSeguridad</class>
-        <class>lights.seguridad.dto.NodoMenu</class>
-        <class>lights.seguridad.dto.Vista</class>
-        <class>lights.seguridad.dto.VistaOperacionBasico</class>
-        <class>lights.seguridad.dto.VistaOperacionCustom</class>
-        <class>lights.seguridad.dto.MensajeSistema</class>
-        <class>lights.seguridad.dto.DispositivoAndroid</class>
+        <class>ve.smile.seguridad.dto.Rol</class>
+        <class>ve.smile.seguridad.dto.Usuario</class>
+        <class>ve.smile.seguridad.dto.Sesion</class>
+        <class>ve.smile.seguridad.dto.Tabla</class>
+        <class>ve.smile.seguridad.dto.MetodoDao</class>
+        <class>ve.smile.seguridad.dto.Auditoria</class>
+        <class>ve.smile.seguridad.dto.IconSclass</class>
+        <class>ve.smile.seguridad.dto.Sclass</class>
+        <class>ve.smile.seguridad.dto.PermisoSeguridad</class>
+        <class>ve.smile.seguridad.dto.NodoMenu</class>
+        <class>ve.smile.seguridad.dto.Vista</class>
+        <class>ve.smile.seguridad.dto.VistaOperacionBasico</class>
+        <class>ve.smile.seguridad.dto.VistaOperacionCustom</class>
+        <class>ve.smile.seguridad.dto.MensajeSistema</class>
+        <class>ve.smile.seguridad.dto.DispositivoAndroid</class>
         
-        <class>lights.smile.dto.Modelo</class>
-        
+       
+        <class>ve.smile.dto.ClasificadorEvento</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Promo54" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/smile" />
 		    <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 		    <property name="javax.persistence.jdbc.user" value="postgres" />
-		    <property name="javax.persistence.jdbc.password" value="postgres" />
+		    <property name="javax.persistence.jdbc.password" value="123" />
             
             <!-- Solo para debug. Comentar para ambientes de Producción -->
             <property name="hibernate.show_sql" value="false"/>

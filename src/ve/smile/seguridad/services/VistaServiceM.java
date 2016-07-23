@@ -1,4 +1,4 @@
-package lights.seguridad.services;
+package ve.smile.seguridad.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +10,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import lights.core.services.FachadaService;
-import lights.seguridad.dao.VistaDAO;
-import lights.seguridad.dao.VistaOperacionCustomDAO;
-import lights.seguridad.dto.Operacion;
-import lights.seguridad.dto.Vista;
-import lights.seguridad.dto.VistaOperacionCustom;
-import lights.seguridad.enums.AccionEnum;
+import ve.smile.seguridad.dao.VistaDAO;
+import ve.smile.seguridad.dao.VistaOperacionCustomDAO;
+import ve.smile.seguridad.dto.Operacion;
+import ve.smile.seguridad.dto.Vista;
+import ve.smile.seguridad.dto.VistaOperacionCustom;
+import ve.smile.seguridad.enums.AccionEnum;
 
 @Path("/VistaService")
 public class VistaServiceM extends FachadaService<Vista> {

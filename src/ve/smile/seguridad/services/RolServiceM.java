@@ -1,4 +1,4 @@
-package lights.seguridad.services;
+package ve.smile.seguridad.services;
 
 import java.util.List;
 
@@ -10,13 +10,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import lights.core.services.FachadaService;
-import lights.seguridad.dao.PermisoSeguridadDAO;
-import lights.seguridad.dao.RolDAO;
-import lights.seguridad.dao.UsuarioDAO;
-import lights.seguridad.dto.PermisoSeguridad;
-import lights.seguridad.dto.Rol;
-import lights.seguridad.dto.Usuario;
-import lights.seguridad.enums.AccionEnum;
+import ve.smile.seguridad.dao.PermisoSeguridadDAO;
+import ve.smile.seguridad.dao.RolDAO;
+import ve.smile.seguridad.dao.UsuarioDAO;
+import ve.smile.seguridad.dto.PermisoSeguridad;
+import ve.smile.seguridad.dto.Rol;
+import ve.smile.seguridad.dto.Usuario;
+import ve.smile.seguridad.enums.AccionEnum;
 
 @Path("/RolService")
 public class RolServiceM extends FachadaService<Rol> {

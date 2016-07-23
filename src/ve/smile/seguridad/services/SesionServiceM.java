@@ -1,4 +1,4 @@
-package lights.seguridad.services;
+package ve.smile.seguridad.services;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,12 +21,12 @@ import com.google.gson.Gson;
 import lights.core.googlecode.genericdao.search.Filter;
 import lights.core.googlecode.genericdao.search.Search;
 import lights.core.services.FachadaService;
-import lights.seguridad.dao.AuditoriaDAO;
-import lights.seguridad.dao.SesionDAO;
-import lights.seguridad.dto.Auditoria;
-import lights.seguridad.dto.Sesion;
-import lights.seguridad.enums.AccionEnum;
-import lights.seguridad.payload.request.PayloadSesionRequest;
+import ve.smile.seguridad.dao.AuditoriaDAO;
+import ve.smile.seguridad.dao.SesionDAO;
+import ve.smile.seguridad.dto.Auditoria;
+import ve.smile.seguridad.dto.Sesion;
+import ve.smile.seguridad.enums.AccionEnum;
+import ve.smile.seguridad.payload.request.PayloadSesionRequest;
 
 @Path("/SesionService")
 public class SesionServiceM extends FachadaService<Sesion> {

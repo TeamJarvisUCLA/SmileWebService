@@ -1,9 +1,9 @@
-package lights.seguridad.services;
+package ve.smile.seguridad.services;
 
 import javax.ws.rs.Path;
 
 import lights.core.services.FachadaService;
-import lights.seguridad.dto.VistaOperacionBasico;
+import ve.smile.seguridad.dto.VistaOperacionBasico;
 
 @Path("/VistaOperacionBasicoService")
 public class VistaOperacionBasicoServiceM extends FachadaService<VistaOperacionBasico> {
