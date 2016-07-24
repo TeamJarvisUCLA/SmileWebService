@@ -1,51 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0"
-	xmlns="http://java.sun.com/xml/ns/persistence" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 
-    <persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
-    	<provider>org.hibernate.ejb.HibernatePersistence</provider>
-        
-        <class>ve.smile.seguridad.dto.Rol</class>
-        <class>ve.smile.seguridad.dto.Usuario</class>
-        <class>ve.smile.seguridad.dto.Sesion</class>
-        <class>ve.smile.seguridad.dto.Tabla</class>
-        <class>ve.smile.seguridad.dto.MetodoDao</class>
-        <class>ve.smile.seguridad.dto.Auditoria</class>
-        <class>ve.smile.seguridad.dto.IconSclass</class>
-        <class>ve.smile.seguridad.dto.Sclass</class>
-        <class>ve.smile.seguridad.dto.PermisoSeguridad</class>
-        <class>ve.smile.seguridad.dto.NodoMenu</class>
-        <class>ve.smile.seguridad.dto.Vista</class>
-        <class>ve.smile.seguridad.dto.VistaOperacionBasico</class>
-        <class>ve.smile.seguridad.dto.VistaOperacionCustom</class>
-        <class>ve.smile.seguridad.dto.MensajeSistema</class>
-        <class>ve.smile.seguridad.dto.DispositivoAndroid</class>
-        
-       
-        <class>ve.smile.dto.ClasificadorEvento</class>
-        <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/smile" />
-		    <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-		    <property name="javax.persistence.jdbc.user" value="postgres" />
-		    <property name="javax.persistence.jdbc.password" value="123" />
-            
-            <!-- Solo para debug. Comentar para ambientes de Producción -->
-            <property name="hibernate.show_sql" value="false"/>
-            <property name="hibernate.format_sql" value="false"/>
-            <property name="hibernate.use_sql_comments" value="false"/>
-            
-			<!--
-	        <property name="hibernate.cache.use_query_cache" value="false"/>
-         
-             
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
-            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-             -->
-        </properties>
-    </persistence-unit>
+	<persistence-unit name="persistenceUnit"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<class>ve.smile.seguridad.dto.Rol</class>
+		<class>ve.smile.seguridad.dto.Usuario</class>
+		<class>ve.smile.seguridad.dto.Sesion</class>
+		<class>ve.smile.seguridad.dto.Tabla</class>
+		<class>ve.smile.seguridad.dto.MetodoDao</class>
+		<class>ve.smile.seguridad.dto.Auditoria</class>
+		<class>ve.smile.seguridad.dto.IconSclass</class>
+		<class>ve.smile.seguridad.dto.Sclass</class>
+		<class>ve.smile.seguridad.dto.PermisoSeguridad</class>
+		<class>ve.smile.seguridad.dto.NodoMenu</class>
+		<class>ve.smile.seguridad.dto.Vista</class>
+		<class>ve.smile.seguridad.dto.VistaOperacionBasico</class>
+		<class>ve.smile.seguridad.dto.VistaOperacionCustom</class>
+		<class>ve.smile.seguridad.dto.MensajeSistema</class>
+		<class>ve.smile.seguridad.dto.DispositivoAndroid</class>
+
+		<class>ve.smile.dto.MetaTsPlan</class>
+		<class>ve.smile.dto.SolicitudAyudaRecurso</class>
+		<class>ve.smile.dto.Fortaleza</class>
+		<class>ve.smile.dto.Actividad</class>
+		<class>ve.smile.dto.Album</class>
+		<class>ve.smile.dto.BeneficiarioFamiliar</class>
+		<class>ve.smile.dto.CapacitacionPlanificada</class>
+		<class>ve.smile.dto.ComentarioAlbum</class>
+		<class>ve.smile.dto.TsPlan</class>
+		<class>ve.smile.dto.RequisitoAyuda</class>
+		<class>ve.smile.dto.EventPlanVoluntario</class>
+		<class>ve.smile.dto.ClasificadorCapacitacion</class>
+		<class>ve.smile.dto.Beneficiario</class>
+		<class>ve.smile.dto.TipoVoluntario</class>
+		<class>ve.smile.dto.UnidadMedida</class>
+		<class>ve.smile.dto.Profesion</class>
+		<class>ve.smile.dto.TipoMotivo</class>
+		<class>ve.smile.dto.TipoRecurso</class>
+		<class>ve.smile.dto.TipoCapacitacion</class>
+		<class>ve.smile.dto.TipoActividad</class>
+		<class>ve.smile.dto.MetaTsPlanActividad</class>
+		<class>ve.smile.dto.ClasificadorMotivo</class>
+		<class>ve.smile.dto.Recurso</class>
+		<class>ve.smile.dto.Directorio</class>
+		<class>ve.smile.dto.Voluntario</class>
+		<class>ve.smile.dto.Requisito</class>
+		<class>ve.smile.dto.Ciudad</class>
+		<class>ve.smile.dto.TrabajadorFortaleza</class>
+		<class>ve.smile.dto.Trabajador</class>
+		<class>ve.smile.dto.SolicitudAyuda</class>
+		<class>ve.smile.dto.Padrino</class>
+		<class>ve.smile.dto.ComenEventoPlanificado</class>
+		<class>ve.smile.dto.Cartelera</class>
+		<class>ve.smile.dto.RedSocialOrganizacion</class>
+		<class>ve.smile.dto.TipoEvento</class>
+		<class>ve.smile.dto.VoluntarioProfesion</class>
+		<class>ve.smile.dto.Organizacion</class>
+		<class>ve.smile.dto.TsPlanActividadRecurso</class>
+		<class>ve.smile.dto.EventPlanTarea</class>
+		<class>ve.smile.dto.VoluntarioFortaleza</class>
+		<class>ve.smile.dto.TsPlanActividad</class>
+		<class>ve.smile.dto.Pregunta</class>
+		<class>ve.smile.dto.Motivo</class>
+		<class>ve.smile.dto.Indicador</class>
+		<class>ve.smile.dto.ClasificadorVoluntario</class>
+		<class>ve.smile.dto.ClasificadorEvento</class>
+		<class>ve.smile.dto.TrabajoSocial</class>
+		<class>ve.smile.dto.NotificacionUsuario</class>
+		<class>ve.smile.dto.EventoPlanificado</class>
+		<class>ve.smile.dto.Tarea</class>
+		<class>ve.smile.dto.EventPlanTareaVoluntario</class>
+		<class>ve.smile.dto.ClasificadorTrabajoSocial</class>
+		<class>ve.smile.dto.EventoFavoritoUsuario</class>
+		<class>ve.smile.dto.Capacitacion</class>
+		<class>ve.smile.dto.Configuracion</class>
+		<class>ve.smile.dto.DonativoRecurso</class>
+		<class>ve.smile.dto.TsPlanActividadTrabajador</class>
+		<class>ve.smile.dto.RedSocial</class>
+		<class>ve.smile.dto.EstudioSocioEconomico</class>
+		<class>ve.smile.dto.Notificacion</class>
+		<class>ve.smile.dto.Evento</class>
+		<class>ve.smile.dto.EtiqTsPlanificado</class>
+		<class>ve.smile.dto.CuentaBancaria</class>
+		<class>ve.smile.dto.ComentarioTrabajoSocial</class>
+		<class>ve.smile.dto.Meta</class>
+		<class>ve.smile.dto.ClasificadorTarea</class>
+		<class>ve.smile.dto.Patrocinador</class>
+		<class>ve.smile.dto.RequisitoParticipacion</class>
+		<class>ve.smile.dto.ClasificadorSugerencia</class>
+		<class>ve.smile.dto.DonativoCuentaBancaria</class>
+		<class>ve.smile.dto.TrabajadorProfesion</class>
+		<class>ve.smile.dto.Etiqueta</class>
+		<class>ve.smile.dto.Comunidad</class>
+		<class>ve.smile.dto.Participacion</class>
+		<class>ve.smile.dto.Banco</class>
+		<class>ve.smile.dto.FrecuenciaAporte</class>
+		<class>ve.smile.dto.Sugerencia</class>
+		<class>ve.smile.dto.ClasificadorActividad</class>
+		<class>ve.smile.dto.CarteleraEtiqueta</class>
+		<class>ve.smile.dto.ClasificadorPregunta</class>
+		<class>ve.smile.dto.TsPlanVoluntario</class>
+		<class>ve.smile.dto.EtiqEventoPlanificado</class>
+		<class>ve.smile.dto.TipoPregunta</class>
+		<class>ve.smile.dto.Familiar</class>
+		<class>ve.smile.dto.VolCapacitacionPlanificada</class>
+		<class>ve.smile.dto.TsPlanActividadVoluntario</class>
+		<class>ve.smile.dto.Multimedia</class>
+		<class>ve.smile.dto.MetaEventPlanificadoTarea</class>
+		<class>ve.smile.dto.Estado</class>
+		<class>ve.smile.dto.MetaEventPlanificado</class>
+		<class>ve.smile.dto.EventPlanTareaRecurso</class>
+		<class>ve.smile.dto.Parentezco</class>
+		<class>ve.smile.dto.ClasificadorPersona</class>
+		<class>ve.smile.dto.TipoTarea</class>
+		<class>ve.smile.dto.EventPlanPatrocinador</class>
+		<class>ve.smile.dto.ClasificadorRecurso</class>
+		<class>ve.smile.dto.Ayuda</class>
+		<class>ve.smile.dto.EventPlanTareaTrabajador</class>
+		<class>ve.smile.dto.Persona</class>
+		<class>ve.smile.dto.TipoTrabajoSocial</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/smile" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.user" value="postgres" />
+			<property name="javax.persistence.jdbc.password" value="123" />
+
+			<!-- Solo para debug. Comentar para ambientes de Producción -->
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.use_sql_comments" value="false" />
+
+			<!-- <property name="hibernate.cache.use_query_cache" value="false"/> 
+				<property name="hibernate.hbm2ddl.auto" value="update"/> <property name="hibernate.ejb.naming_strategy" 
+				value="org.hibernate.cfg.ImprovedNamingStrategy"/> <property name="hibernate.cache.provider_class" 
+				value="org.hibernate.cache.NoCacheProvider"/> -->
+		</properties>
+	</persistence-unit>
 </persistence>
