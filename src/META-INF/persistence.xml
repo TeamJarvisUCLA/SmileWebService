@@ -23,113 +23,118 @@
 		<class>ve.smile.seguridad.dto.MensajeSistema</class>
 		<class>ve.smile.seguridad.dto.DispositivoAndroid</class>
 
-		<class>ve.smile.dto.MetaTsPlan</class>
-		<class>ve.smile.dto.SolicitudAyudaRecurso</class>
+		<class>ve.smile.dto.EventPlanPersona</class>
 		<class>ve.smile.dto.Fortaleza</class>
 		<class>ve.smile.dto.Actividad</class>
-		<class>ve.smile.dto.Album</class>
+		<class>ve.smile.dto.IndicadorTsPlanActividad</class>
 		<class>ve.smile.dto.BeneficiarioFamiliar</class>
-		<class>ve.smile.dto.CapacitacionPlanificada</class>
 		<class>ve.smile.dto.ComentarioAlbum</class>
+		<class>ve.smile.dto.Colaborador</class>
 		<class>ve.smile.dto.TsPlan</class>
-		<class>ve.smile.dto.RequisitoAyuda</class>
-		<class>ve.smile.dto.EventPlanVoluntario</class>
 		<class>ve.smile.dto.ClasificadorCapacitacion</class>
-		<class>ve.smile.dto.Beneficiario</class>
-		<class>ve.smile.dto.TipoVoluntario</class>
-		<class>ve.smile.dto.UnidadMedida</class>
+		<class>ve.smile.dto.IncidenciaTsPlan</class>
 		<class>ve.smile.dto.Profesion</class>
-		<class>ve.smile.dto.TipoMotivo</class>
-		<class>ve.smile.dto.TipoRecurso</class>
-		<class>ve.smile.dto.TipoCapacitacion</class>
-		<class>ve.smile.dto.TipoActividad</class>
-		<class>ve.smile.dto.MetaTsPlanActividad</class>
+		<class>ve.smile.dto.ClasificadorReconocimiento</class>
 		<class>ve.smile.dto.ClasificadorMotivo</class>
 		<class>ve.smile.dto.Recurso</class>
 		<class>ve.smile.dto.Directorio</class>
-		<class>ve.smile.dto.Voluntario</class>
+		<class>ve.smile.dto.IndicadorEventoPlanificado</class>
 		<class>ve.smile.dto.Requisito</class>
 		<class>ve.smile.dto.Ciudad</class>
-		<class>ve.smile.dto.TrabajadorFortaleza</class>
-		<class>ve.smile.dto.Trabajador</class>
+		<class>ve.smile.dto.EtiqAlbum</class>
 		<class>ve.smile.dto.SolicitudAyuda</class>
-		<class>ve.smile.dto.Padrino</class>
-		<class>ve.smile.dto.ComenEventoPlanificado</class>
-		<class>ve.smile.dto.Cartelera</class>
-		<class>ve.smile.dto.RedSocialOrganizacion</class>
-		<class>ve.smile.dto.TipoEvento</class>
-		<class>ve.smile.dto.VoluntarioProfesion</class>
-		<class>ve.smile.dto.Organizacion</class>
+		<class>ve.smile.dto.Trabajador</class>
 		<class>ve.smile.dto.TsPlanActividadRecurso</class>
-		<class>ve.smile.dto.EventPlanTarea</class>
+		<class>ve.smile.dto.MultimediaAlbum</class>
 		<class>ve.smile.dto.VoluntarioFortaleza</class>
-		<class>ve.smile.dto.TsPlanActividad</class>
 		<class>ve.smile.dto.Pregunta</class>
-		<class>ve.smile.dto.Motivo</class>
-		<class>ve.smile.dto.Indicador</class>
+		<class>ve.smile.dto.TsPlanActividad</class>
 		<class>ve.smile.dto.ClasificadorVoluntario</class>
-		<class>ve.smile.dto.ClasificadorEvento</class>
-		<class>ve.smile.dto.TrabajoSocial</class>
-		<class>ve.smile.dto.NotificacionUsuario</class>
 		<class>ve.smile.dto.EventoPlanificado</class>
-		<class>ve.smile.dto.Tarea</class>
+		<class>ve.smile.dto.NotificacionUsuario</class>
 		<class>ve.smile.dto.EventPlanTareaVoluntario</class>
-		<class>ve.smile.dto.ClasificadorTrabajoSocial</class>
-		<class>ve.smile.dto.EventoFavoritoUsuario</class>
-		<class>ve.smile.dto.Capacitacion</class>
-		<class>ve.smile.dto.Configuracion</class>
-		<class>ve.smile.dto.DonativoRecurso</class>
-		<class>ve.smile.dto.TsPlanActividadTrabajador</class>
+		<class>ve.smile.dto.ComentarioCartelera</class>
+		<class>ve.smile.dto.ReconocimientoPersona</class>
 		<class>ve.smile.dto.RedSocial</class>
-		<class>ve.smile.dto.EstudioSocioEconomico</class>
-		<class>ve.smile.dto.Notificacion</class>
+		<class>ve.smile.dto.TsPlanActividadTrabajador</class>
 		<class>ve.smile.dto.Evento</class>
-		<class>ve.smile.dto.EtiqTsPlanificado</class>
-		<class>ve.smile.dto.CuentaBancaria</class>
-		<class>ve.smile.dto.ComentarioTrabajoSocial</class>
-		<class>ve.smile.dto.Meta</class>
-		<class>ve.smile.dto.ClasificadorTarea</class>
-		<class>ve.smile.dto.Patrocinador</class>
-		<class>ve.smile.dto.RequisitoParticipacion</class>
-		<class>ve.smile.dto.ClasificadorSugerencia</class>
-		<class>ve.smile.dto.DonativoCuentaBancaria</class>
+		<class>ve.smile.dto.Cargo</class>
+		<class>ve.smile.dto.Valores</class>
+		<class>ve.smile.dto.IndicadorTsPlan</class>
 		<class>ve.smile.dto.TrabajadorProfesion</class>
-		<class>ve.smile.dto.Etiqueta</class>
-		<class>ve.smile.dto.Comunidad</class>
 		<class>ve.smile.dto.Participacion</class>
 		<class>ve.smile.dto.Banco</class>
-		<class>ve.smile.dto.FrecuenciaAporte</class>
-		<class>ve.smile.dto.Sugerencia</class>
-		<class>ve.smile.dto.ClasificadorActividad</class>
-		<class>ve.smile.dto.CarteleraEtiqueta</class>
-		<class>ve.smile.dto.ClasificadorPregunta</class>
-		<class>ve.smile.dto.TsPlanVoluntario</class>
-		<class>ve.smile.dto.EtiqEventoPlanificado</class>
-		<class>ve.smile.dto.TipoPregunta</class>
 		<class>ve.smile.dto.Familiar</class>
 		<class>ve.smile.dto.VolCapacitacionPlanificada</class>
 		<class>ve.smile.dto.TsPlanActividadVoluntario</class>
-		<class>ve.smile.dto.Multimedia</class>
-		<class>ve.smile.dto.MetaEventPlanificadoTarea</class>
-		<class>ve.smile.dto.Estado</class>
-		<class>ve.smile.dto.MetaEventPlanificado</class>
 		<class>ve.smile.dto.EventPlanTareaRecurso</class>
-		<class>ve.smile.dto.Parentezco</class>
-		<class>ve.smile.dto.ClasificadorPersona</class>
-		<class>ve.smile.dto.TipoTarea</class>
-		<class>ve.smile.dto.EventPlanPatrocinador</class>
-		<class>ve.smile.dto.ClasificadorRecurso</class>
 		<class>ve.smile.dto.Ayuda</class>
 		<class>ve.smile.dto.EventPlanTareaTrabajador</class>
+		<class>ve.smile.dto.PublicacionRedSocial</class>
+		<class>ve.smile.dto.SolicitudAyudaRecurso</class>
+		<class>ve.smile.dto.Album</class>
+		<class>ve.smile.dto.CapacitacionPlanificada</class>
+		<class>ve.smile.dto.RequisitoAyuda</class>
+		<class>ve.smile.dto.PreguntaClasificada</class>
+		<class>ve.smile.dto.Beneficiario</class>
+		<class>ve.smile.dto.VoluntarioClasificado</class>
+		<class>ve.smile.dto.UnidadMedida</class>
+		<class>ve.smile.dto.Voluntario</class>
+		<class>ve.smile.dto.TrabajadorFortaleza</class>
+		<class>ve.smile.dto.Padrino</class>
+		<class>ve.smile.dto.Cartelera</class>
+		<class>ve.smile.dto.RedSocialOrganizacion</class>
+		<class>ve.smile.dto.EtiqCartelera</class>
+		<class>ve.smile.dto.VoluntarioProfesion</class>
+		<class>ve.smile.dto.Organizacion</class>
+		<class>ve.smile.dto.EventPlanTarea</class>
+		<class>ve.smile.dto.Motivo</class>
+		<class>ve.smile.dto.Indicador</class>
+		<class>ve.smile.dto.ClasificadorEvento</class>
+		<class>ve.smile.dto.TrabajoSocial</class>
+		<class>ve.smile.dto.Tarea</class>
+		<class>ve.smile.dto.PlantillaEventoIndicador</class>
+		<class>ve.smile.dto.ClasificadorTrabajoSocial</class>
+		<class>ve.smile.dto.EventoFavoritoUsuario</class>
+		<class>ve.smile.dto.TsPlanPersona</class>
+		<class>ve.smile.dto.Respaldo</class>
+		<class>ve.smile.dto.Capacitacion</class>
+		<class>ve.smile.dto.Configuracion</class>
+		<class>ve.smile.dto.Parentesco</class>
+		<class>ve.smile.dto.DonativoRecurso</class>
+		<class>ve.smile.dto.EstudioSocioEconomico</class>
+		<class>ve.smile.dto.EtiqTsPlanificado</class>
+		<class>ve.smile.dto.CuentaBancaria</class>
+		<class>ve.smile.dto.ClasificadorTarea</class>
+		<class>ve.smile.dto.Patrocinador</class>
+		<class>ve.smile.dto.PlantillaEventoTarea</class>
+		<class>ve.smile.dto.ClasificadorSugerencia</class>
+		<class>ve.smile.dto.RequisitoParticipacion</class>
+		<class>ve.smile.dto.DonativoCuentaBancaria</class>
+		<class>ve.smile.dto.Etiqueta</class>
+		<class>ve.smile.dto.Comunidad</class>
+		<class>ve.smile.dto.FrecuenciaAporte</class>
+		<class>ve.smile.dto.InteraccionPortal</class>
+		<class>ve.smile.dto.ClasificadorActividad</class>
+		<class>ve.smile.dto.Difusion</class>
+		<class>ve.smile.dto.ClasificadorPregunta</class>
+		<class>ve.smile.dto.IncidenciaEventoPlan</class>
+		<class>ve.smile.dto.ContactoPortal</class>
+		<class>ve.smile.dto.EtiqEventoPlanificado</class>
+		<class>ve.smile.dto.Estado</class>
+		<class>ve.smile.dto.Multimedia</class>
+		<class>ve.smile.dto.IndicadorEventoPlanTarea</class>
+		<class>ve.smile.dto.EventPlanPatrocinador</class>
+		<class>ve.smile.dto.ClasificadorRecurso</class>
 		<class>ve.smile.dto.Persona</class>
-		<class>ve.smile.dto.TipoTrabajoSocial</class>
+
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/smile" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="123" />
+			<property name="javax.persistence.jdbc.password" value="postgres" />
 
 			<!-- Solo para debug. Comentar para ambientes de Producción -->
 			<property name="hibernate.show_sql" value="false" />
