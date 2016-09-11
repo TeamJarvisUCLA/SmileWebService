@@ -14,9 +14,9 @@ import ve.smile.dto.RequisitoAyuda;
 public class RequisitoAyudaServiceM extends FachadaService<RequisitoAyuda> {
 
 	@GET
-	@Path("/consultarPorAyuda/{idSesion}/{accessToken}/{idRol}")
+	@Path("/consultarPorAyuda/{idSesion}/{accessToken}/{idAyuda}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String pathConsultarPorAyudal(@PathParam("idSesion") Integer idSesion, @PathParam("accessToken") String accessToken,
+	public String pathConsultarPorAyuda(@PathParam("idSesion") Integer idSesion, @PathParam("accessToken") String accessToken,
 			@PathParam("idAyuda") Integer idAyuda) {
 		try {
 			if (validarSesion(idSesion, accessToken)) {
