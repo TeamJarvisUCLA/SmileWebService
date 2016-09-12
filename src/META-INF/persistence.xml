@@ -127,14 +127,16 @@
 		<class>ve.smile.dto.EventPlanPatrocinador</class>
 		<class>ve.smile.dto.ClasificadorRecurso</class>
 		<class>ve.smile.dto.Persona</class>
+		<class>ve.smile.dto.PlantillaTsPlanActividad</class>
+<class>ve.smile.dto.PlantillaTsPlanIndicador</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/smile" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Smile" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="postgres" />
+			<property name="javax.persistence.jdbc.password" value="123" />
 
 			<!-- Solo para debug. Comentar para ambientes de Producción -->
 			<property name="hibernate.show_sql" value="false" />
