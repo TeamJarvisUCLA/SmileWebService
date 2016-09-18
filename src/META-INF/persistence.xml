@@ -127,8 +127,10 @@
 		<class>ve.smile.dto.EventPlanPatrocinador</class>
 		<class>ve.smile.dto.ClasificadorRecurso</class>
 		<class>ve.smile.dto.Persona</class>
-		<class>ve.smile.dto.PlantillaTsPlanActividad</class>
-<class>ve.smile.dto.PlantillaTsPlanIndicador</class>
+		<class>ve.smile.dto.ConfiguracionBd</class>
+		<class>ve.smile.dto.RespaldoTabla</class>
+		<class>ve.smile.dto.PlantillaTrabajoSocialActividad</class>
+		<class>ve.smile.dto.PlantillaTrabajoSocialIndicador</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
