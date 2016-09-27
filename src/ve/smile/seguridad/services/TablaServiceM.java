@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -13,7 +15,7 @@ import com.google.gson.Gson;
 
 import lights.core.services.FachadaService;
 import ve.smile.dao.Configuracion;
-import ve.smile.dao.MultimediaDAO;
+import ve.smile.dao.IndicadorDAO;
 import ve.smile.dao.RespaldoDAO;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.Respaldo;
@@ -30,40 +32,61 @@ public class TablaServiceM extends FachadaService<Tabla> {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public String respaldarTablas(String data) {
 		Gson gson = new Gson();
-
 		PayloadTablaRequest request = gson.fromJson(data,
-				PayloadTablaRequest.class);
-		 HashMap<String, Object> parametros = request.getParametros();
-		// request.setObjetos((List<Tabla>) request.getParametro("lista"));
-		// System.out.println(((ArrayList<Tabla>)request.getParametros().get("lista")).size());
+		PayloadTablaRequest.class);
+		HashMap<String, Object> parametros = request.getParametros();
 		List<Tabla> listaTabla = request.getObjetos();
-		
 		try {
 			return respaldarTablas(listaTabla,parametros);
 		} catch (Exception e) {
 			return buildAnswerError(e);
 		}
+	}
+	
+	@GET
+	@Path("/consultarPorRespaldo/{idSesion}/{accessToken}/{idEvento}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathConsultarPorRespaldo(
+			@PathParam("idSesion") Integer idSesion,
+			@PathParam("accessToken") String accessToken,
+			@PathParam("idRespaldo") Integer idRespaldo) {
+		try {
+			if (validarSesion(idSesion, accessToken)) {
+				return buildAnswerSuccess(
+						new TablaDAO().findByRespaldo(idRespaldo), SUCCESS_2);
+			}
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
 
+		return buildAnswerError(new Exception(ERROR_UNKNOWN));
 	}
 
+
 	public String respaldarTablas(List<Tabla> tablas, HashMap<String, Object> parametros) throws Exception {
-		Runtime runTime;
-		Process p;
-		ProcessBuilder pb;
+		Process p = null;
+		ProcessBuilder pb = null;
 		Map<String, String> propiedades1 = new HashMap<String, String>();
 		Configuracion configuracion = new Configuracion();
 		propiedades1 = configuracion.configuracion();
 		String tablasRespaldar = "";
 		String confiBackup = "C:\\Program Files\\PostgreSQL\\9.3\\bin\\pg_dump.exe,-i,-F,c,-b,-v,-f,";
-		String direcRespaldo = "C:\\RespaldoSmile\\"+parametros.get("nombre")+"."+ExtensionEnum.BACKUP;
+		String nombreRespaldo = (String)parametros.get("nombre") ;
+		nombreRespaldo = nombreRespaldo.replaceAll(" ", "");
+		String direcRespaldo = "C:\\RespaldoSmile\\"+nombreRespaldo+"."+ExtensionEnum.BACKUP;
 		Respaldo respaldo = new Respaldo(new Multimedia(direcRespaldo, (String)parametros.get("nombre"), (String)parametros.get("descripcion"), ExtensionEnum.BACKUP.ordinal(), TipoMultimediaEnum.RESPALDO.ordinal()), new Date().getTime());
 		respaldo.setListTablas(tablas);
 		RespaldoDAO respaldoDAO = new RespaldoDAO();
 		 respaldo = respaldoDAO.save(respaldo);
-		for (int i = 0; i < tablas.size(); i++) {
-			tablasRespaldar += ",-t," + tablas.get(i).getNombre();
-
-		}
+		 boolean pendiente = (boolean)parametros.get("completo");
+		 System.out.println(pendiente);
+		 if(!pendiente){
+			 for (int i = 0; i < tablas.size(); i++) {
+					tablasRespaldar += ",-t," + tablas.get(i).getNombre();
+				}	 
+		 }
+		
+		System.out.println(tablasRespaldar);
 		String codigTemporal = confiBackup + direcRespaldo + tablasRespaldar
 				+ "," + propiedades1.get("database");
 		String[] atato = codigTemporal.split(",");
@@ -75,11 +98,30 @@ public class TablaServiceM extends FachadaService<Tabla> {
 			pb.environment().put("PGPASSWORD", propiedades1.get("contrasenna"));
 			pb.redirectErrorStream(true);
 			p = pb.start();
+		     boolean e = true;
+		     try {
+				
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+	            while(e){
+	            	try {
+	    				p.exitValue();
+	    				System.out.println(p.exitValue());
+	    				e = false;
+	    			} catch (Exception z) {
+	    				e = true;
+	    				System.out.println("Aun no termina");
+	    			}	
+	            }
+	            System.out.println("Termino");
 		} catch (Exception e) {
-			// TODO: handle exception
+			p.destroy();
+			p = pb.start();
+			System.out.println("se viono por el otro cath");
 			System.out.println(e.getMessage());
 		}
-		runTime = Runtime.getRuntime();
+		
 		// Se asignan valores a las variables de PostgreSQL		
 
 		return buildAnswerSuccess(SUCCESS_5);
