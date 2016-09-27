@@ -44,7 +44,7 @@ public class TablaServiceM extends FachadaService<Tabla> {
 	}
 	
 	@GET
-	@Path("/consultarPorRespaldo/{idSesion}/{accessToken}/{idEvento}")
+	@Path("/consultarPorRespaldo/{idSesion}/{accessToken}/{idRespaldo}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public String pathConsultarPorRespaldo(
 			@PathParam("idSesion") Integer idSesion,
