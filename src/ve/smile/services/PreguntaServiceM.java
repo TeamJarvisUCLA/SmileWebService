@@ -12,7 +12,7 @@ import ve.smile.dto.Pregunta;
 
 @Path("/PreguntaService")
 public class PreguntaServiceM extends FachadaService<Pregunta> {
-	
+
 	@GET
 	@Path("/consultarPorClasificadorPregunta/{idSesion}/{accessToken}/{idClasificadorPregunta}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -33,5 +33,20 @@ public class PreguntaServiceM extends FachadaService<Pregunta> {
 
 		return buildAnswerError(new Exception(ERROR_UNKNOWN));
 	}
-	
+
+	@GET
+	@Path("/consultarPorClasificadorPreguntaSinSession/{idClasificadorPregunta}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathConsultarPorClasificadorPreguntaSinSession(
+			@PathParam("idClasificadorPregunta") Integer idClasificadorPregunta) {
+		try {
+			return buildAnswerSuccess(
+					new PreguntaDAO()
+							.findByClasificadorPregunta(idClasificadorPregunta),
+					SUCCESS_2);
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+	}
+
 }
