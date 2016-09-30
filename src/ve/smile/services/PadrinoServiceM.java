@@ -15,7 +15,7 @@ import ve.smile.dao.FrecuenciaAporteDAO;
 import ve.smile.dao.PadrinoDAO;
 import ve.smile.dao.PersonaDAO;
 import ve.smile.dto.Padrino;
-import ve.smile.enums.EstatusPostuladoEnum;
+import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.payload.request.PayloadPadrinoRequest;
 
 @Path("/PadrinoService")
@@ -35,7 +35,7 @@ public class PadrinoServiceM extends FachadaService<Padrino> {
 			FrecuenciaAporteDAO aporteDAO = new FrecuenciaAporteDAO();
 			personaDAO.save(request.getObjeto().getFkPersona());
 			aporteDAO.save(request.getObjeto().getFkFrecuenciaAporte());
-			request.getObjeto().setEstatusPostulado(EstatusPostuladoEnum.POSTULADO.ordinal());
+			request.getObjeto().setEstatusPostulado(EstatusPadrinoEnum.POSTULADO.ordinal());
 			Padrino padrino = padrinoDAO.save(request.getObjeto());
 			mapa.put("id", padrino.getIdPadrino());
 			return buildAnswerSuccess(SUCCESS_4, mapa);

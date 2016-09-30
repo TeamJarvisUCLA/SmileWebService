@@ -17,7 +17,8 @@ import ve.smile.dao.VoluntarioDAO;
 import ve.smile.dto.Padrino;
 import ve.smile.dto.Persona;
 import ve.smile.dto.Voluntario;
-import ve.smile.enums.EstatusPostuladoEnum;
+import ve.smile.enums.EstatusPadrinoEnum;
+import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.payload.request.PayloadPersonaRequest;
 
 @Path("/PersonaService")
@@ -37,7 +38,7 @@ public class PersonaServiceM extends FachadaService<Persona> {
 			Persona persona = personaDAO.save(request.getObjeto());
 			Voluntario voluntario = new Voluntario();
 			voluntario.setFkPersona(persona);
-			voluntario.setEstatusVoluntario(EstatusPostuladoEnum.POSTULADO.ordinal());
+			voluntario.setEstatusVoluntario(EstatusVoluntarioEnum.POSTULADO.ordinal());
 			voluntario = voluntarioDAO.save(voluntario);
 			mapa.put("id", voluntario.getIdVoluntario());
 			return buildAnswerSuccess(SUCCESS_4, mapa);
@@ -61,7 +62,7 @@ public class PersonaServiceM extends FachadaService<Persona> {
 			Persona persona = personaDAO.save(request.getObjeto());
 			Padrino padrino = new Padrino();
 			padrino.setFkPersona(persona);
-			padrino.setEstatusPostulado(EstatusPostuladoEnum.POSTULADO.ordinal());
+			padrino.setEstatusPostulado(EstatusPadrinoEnum.POSTULADO.ordinal());
 			padrino = padrinoDAO.save(padrino);
 			mapa.put("id", padrino.getIdPadrino());
 			return buildAnswerSuccess(SUCCESS_4, mapa);
