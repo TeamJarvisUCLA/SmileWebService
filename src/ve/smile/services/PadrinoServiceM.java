@@ -31,11 +31,9 @@ public class PadrinoServiceM extends FachadaService<Padrino> {
 		Map<String, Object> mapa = new HashMap<String, Object>();
 		try {
 			PersonaDAO personaDAO = new PersonaDAO();
-			PadrinoDAO padrinoDAO = new PadrinoDAO();
-			FrecuenciaAporteDAO aporteDAO = new FrecuenciaAporteDAO();
+			PadrinoDAO padrinoDAO = new PadrinoDAO();		
 			personaDAO.save(request.getObjeto().getFkPersona());
-			aporteDAO.save(request.getObjeto().getFkFrecuenciaAporte());
-			request.getObjeto().setEstatusPostulado(EstatusPadrinoEnum.POSTULADO.ordinal());
+			request.getObjeto().setEstatusPadrino(EstatusPadrinoEnum.POSTULADO.ordinal());
 			Padrino padrino = padrinoDAO.save(request.getObjeto());
 			mapa.put("id", padrino.getIdPadrino());
 			return buildAnswerSuccess(SUCCESS_4, mapa);

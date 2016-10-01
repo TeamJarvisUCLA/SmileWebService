@@ -62,7 +62,7 @@ public class PersonaServiceM extends FachadaService<Persona> {
 			Persona persona = personaDAO.save(request.getObjeto());
 			Padrino padrino = new Padrino();
 			padrino.setFkPersona(persona);
-			padrino.setEstatusPostulado(EstatusPadrinoEnum.POSTULADO.ordinal());
+			padrino.setEstatusPadrino(EstatusPadrinoEnum.POSTULADO.ordinal());
 			padrino = padrinoDAO.save(padrino);
 			mapa.put("id", padrino.getIdPadrino());
 			return buildAnswerSuccess(SUCCESS_4, mapa);
