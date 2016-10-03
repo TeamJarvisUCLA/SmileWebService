@@ -61,74 +61,73 @@ public class RolServiceM extends FachadaService<Rol> {
 		return buildAnswerError(new Exception(ERROR_UNKNOWN));
 	}
 
-	
-//	 @POST
-//	 @Path("/incluirConUsuarios")
-//	 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-//	 public String pathIncluirConUsuarios(String data) {
-//	 Gson gson = new Gson();
-//	
-//	 PayloadRolRequest request = (PayloadRolRequest) gson.fromJson(data,
-//	 PayloadRolRequest.class);
-//	
-//	 try {
-//	 if (validarSesion(request.getIdSesion(), request.getAccessToken())) {
-//	 UsuarioDAO usuarioDAO = new UsuarioDAO();
-//	 RolDAO rolDAO = new RolDAO();
-//	 UsuarioRolDAO usuarioRolDAO = new UsuarioRolDAO();
-//	
-//	 String ids = (String) request.getParametro("idUsuarios");
-//	
-//	 if (ids == null) {
-//	 ids = "";
-//	 }
-//	
-//	 String[] idUsuarios = (ids).split(",");
-//	
-//	 List<Usuario> usuarios = new ArrayList<Usuario>();
-//	 //Validar que existan los usuarios suministrados
-//	 for (String idUsuario : idUsuarios) {
-//	 if (idUsuario == null || idUsuario.trim().length() == 0) {
-//	 continue;
-//	 }
-//	 Usuario usuario = usuarioDAO.find(Integer.parseInt(idUsuario));
-//	
-//	 if (usuario == null) {
-//	 throw new Exception("Error Code: 101-No se encontró un usuario con id "
-//	 + idUsuario);
-//	 }
-//	
-//	 usuarios.add(usuario);
-//	 }
-//	 //Guardando el rol
-//	 Rol rol = rolDAO.save(request.getObjeto());
-//	
-//	 for (Usuario usuario : usuarios) {
-//	 UsuarioRol usuarioRol = new UsuarioRol(usuario, rol);
-//	
-//	 usuarioRolDAO.save(usuarioRol);
-//	 }
-//	
-//	 String datos = getDataFromObjectToAuditoria(rol) + SEPARATOR +
-//	 "idUsuarios=" + request.getParametro("idUsuarios");
-//	
-//	 Map<String, Object> mapa = new HashMap<String, Object>();
-//	
-//	 mapa.put("id", rol.getIdRol());
-//	
-//	 auditar(request.getIdSesion(), getTable() , AccionEnum.INCLUIR.ordinal(),
-//	 getPath().substring(1) + ".INCLUIR", rol.getIdRol(),
-//	 datos);
-//	
-//	 return buildAnswerSuccess(SUCCESS_4, mapa);
-//	 }
-//	 } catch (Exception e) {
-//	 return buildAnswerError(e);
-//	 }
-//	
-//	 return buildAnswerError(new Exception(ERROR_UNKNOWN));
-//	 }
-	
+	// @POST
+	// @Path("/incluirConUsuarios")
+	// @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	// public String pathIncluirConUsuarios(String data) {
+	// Gson gson = new Gson();
+	//
+	// PayloadRolRequest request = (PayloadRolRequest) gson.fromJson(data,
+	// PayloadRolRequest.class);
+	//
+	// try {
+	// if (validarSesion(request.getIdSesion(), request.getAccessToken())) {
+	// UsuarioDAO usuarioDAO = new UsuarioDAO();
+	// RolDAO rolDAO = new RolDAO();
+	// UsuarioRolDAO usuarioRolDAO = new UsuarioRolDAO();
+	//
+	// String ids = (String) request.getParametro("idUsuarios");
+	//
+	// if (ids == null) {
+	// ids = "";
+	// }
+	//
+	// String[] idUsuarios = (ids).split(",");
+	//
+	// List<Usuario> usuarios = new ArrayList<Usuario>();
+	// //Validar que existan los usuarios suministrados
+	// for (String idUsuario : idUsuarios) {
+	// if (idUsuario == null || idUsuario.trim().length() == 0) {
+	// continue;
+	// }
+	// Usuario usuario = usuarioDAO.find(Integer.parseInt(idUsuario));
+	//
+	// if (usuario == null) {
+	// throw new Exception("Error Code: 101-No se encontró un usuario con id "
+	// + idUsuario);
+	// }
+	//
+	// usuarios.add(usuario);
+	// }
+	// //Guardando el rol
+	// Rol rol = rolDAO.save(request.getObjeto());
+	//
+	// for (Usuario usuario : usuarios) {
+	// UsuarioRol usuarioRol = new UsuarioRol(usuario, rol);
+	//
+	// usuarioRolDAO.save(usuarioRol);
+	// }
+	//
+	// String datos = getDataFromObjectToAuditoria(rol) + SEPARATOR +
+	// "idUsuarios=" + request.getParametro("idUsuarios");
+	//
+	// Map<String, Object> mapa = new HashMap<String, Object>();
+	//
+	// mapa.put("id", rol.getIdRol());
+	//
+	// auditar(request.getIdSesion(), getTable() , AccionEnum.INCLUIR.ordinal(),
+	// getPath().substring(1) + ".INCLUIR", rol.getIdRol(),
+	// datos);
+	//
+	// return buildAnswerSuccess(SUCCESS_4, mapa);
+	// }
+	// } catch (Exception e) {
+	// return buildAnswerError(e);
+	// }
+	//
+	// return buildAnswerError(new Exception(ERROR_UNKNOWN));
+	// }
+
 	// @POST
 	// @Path("/modificarConUsuarios")
 	// @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -261,9 +260,8 @@ public class RolServiceM extends FachadaService<Rol> {
 							.getIdPermisoSeguridad());
 				}
 
-				auditar(idSesion, getTable(), AccionEnum.ELIMINAR.ordinal(),
-						getPath().substring(1) + ".ELIMINAR", id, "");
-
+				auditar(idSesion, getTable(), AccionEnum.CONSULTAR.ordinal(),
+						0, "");
 				if (rolDAO.removeById(id)) {
 					return buildAnswerSuccess(SUCCESS_3);
 				}
