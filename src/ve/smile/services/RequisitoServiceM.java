@@ -1,5 +1,7 @@
 package ve.smile.services;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -49,5 +51,37 @@ public class RequisitoServiceM extends FachadaService<Requisito> {
 		}
 
 		return buildAnswerError(new Exception(ERROR_UNKNOWN));
+	}
+	@GET
+	@Path("/consultarParticipacionRequisitos/{idParticipacion}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String consultarParticipacionRequisitos(@PathParam("idParticipacion") Integer idParticipacion) {
+		try {
+
+			List<Requisito> requisitos =  new RequisitoDAO().findByParticipacion(idParticipacion);
+
+			return buildAnswerSuccess(requisitos, SUCCESS_2);
+
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+
+	}
+	
+	
+	@GET
+	@Path("/consultarAyudaRequisitos/{idAyuda}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String consultarAyudaRequisitos(@PathParam("idAyuda") Integer idAyuda) {
+		try {
+
+			List<Requisito> requisitos =  new RequisitoDAO().findByAyuda(idAyuda);
+
+			return buildAnswerSuccess(requisitos, SUCCESS_2);
+
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+
 	}
 }
