@@ -27,7 +27,7 @@
 		<class>ve.smile.dto.Fortaleza</class>
 		<class>ve.smile.dto.Actividad</class>
 		<class>ve.smile.dto.IndicadorTsPlanActividad</class>
-		<class>ve.smile.dto.BeneficiarioFamiliar</class>
+	
 		<class>ve.smile.dto.ComentarioAlbum</class>
 		<class>ve.smile.dto.Colaborador</class>
 		<class>ve.smile.dto.TsPlan</class>
