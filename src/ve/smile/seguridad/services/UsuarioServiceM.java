@@ -15,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 
 import lights.core.encryptor.UtilEncryptor;
 import lights.core.services.FachadaService;
+import ve.smile.dao.PersonaDAO;
+import ve.smile.dto.Persona;
 import ve.smile.seguridad.dao.PermisoSeguridadDAO;
 import ve.smile.seguridad.dao.SesionDAO;
 import ve.smile.seguridad.dao.UsuarioDAO;
@@ -32,98 +34,180 @@ public class UsuarioServiceM extends FachadaService<Usuario> {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public String pathLogin(String data) {
 		Gson gson = new Gson();
-		
-		PayloadUsuarioRequest request =  gson.fromJson(data, PayloadUsuarioRequest.class);
-		
+
+		PayloadUsuarioRequest request = gson.fromJson(data,
+				PayloadUsuarioRequest.class);
+
 		try {
-			return checkLogin(request.getObjeto(), (String) request.getParametro("ip"));
+			return checkLogin(request.getObjeto(),
+					(String) request.getParametro("ip"));
 		} catch (Exception e) {
 			return buildAnswerError(e);
 		}
 	}
-	
+
 	@GET
 	@Path("/consultarPorRol/{idSesion}/{accessToken}/{idRol}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String pathConsultarPorRol(@PathParam("idSesion") Integer idSesion, @PathParam("accessToken") String accessToken,
+	public String pathConsultarPorRol(@PathParam("idSesion") Integer idSesion,
+			@PathParam("accessToken") String accessToken,
 			@PathParam("idRol") Integer idRol) {
 		try {
 			if (validarSesion(idSesion, accessToken)) {
-				return buildAnswerSuccess(new UsuarioDAO().findByRol(idRol), SUCCESS_2); 
+				return buildAnswerSuccess(new UsuarioDAO().findByRol(idRol),
+						SUCCESS_2);
 			}
 		} catch (Exception e) {
 			return buildAnswerError(e);
 		}
-		
+
 		return buildAnswerError(new Exception(ERROR_UNKNOWN));
 	}
 
-	public String checkLogin(Usuario usuarioToCheck, String ip) throws Exception {
-		Usuario usuario = new UsuarioDAO().findByCorreo(usuarioToCheck.getCorreo());
-		
+	public String checkLogin(Usuario usuarioToCheck, String ip)
+			throws Exception {
+		Usuario usuario = new UsuarioDAO().findByCorreo(usuarioToCheck
+				.getCorreo());
+
 		if (usuario == null) {
-			throw new Exception("Error Code: 007-Este usuario no existe en nuestra base de datos.");
+			throw new Exception(
+					"Error Code: 007-Este usuario no existe en nuestra base de datos.");
 		}
-		
-		if (!UtilEncryptor.desencriptar(usuario.getClave())
-				.equals(UtilEncryptor.desencriptar(usuarioToCheck.getClave()))) {
-			throw new Exception("Error Code: 008-La clave suministrada no coincide con la de la base de datos.");
+
+		if (!UtilEncryptor.desencriptar(usuario.getClave()).equals(
+				UtilEncryptor.desencriptar(usuarioToCheck.getClave()))) {
+			throw new Exception(
+					"Error Code: 008-La clave suministrada no coincide con la de la base de datos.");
 		}
-		
+
 		if (!usuario.getEstatus().equals("A")) {
-			throw new Exception("Error Code: 009-Este usuario se encuentra deshabilitado. Comuniquese con el administrador.");
+			throw new Exception(
+					"Error Code: 009-Este usuario se encuentra deshabilitado. Comuniquese con el administrador.");
 		}
-		
+
 		Rol rol = usuario.getFkRol();
-		
-		if (rol == null) { 
-			throw new Exception("Error Code: 010-Este usuario no tiene asociado ningún rol dentro del sistema. Comuniquese con el administrador.");
+
+		if (rol == null) {
+			throw new Exception(
+					"Error Code: 010-Este usuario no tiene asociado ningÃºn rol dentro del sistema. Comuniquese con el administrador.");
 		}
-		
-		Integer cantidadPermisos = new PermisoSeguridadDAO().contarDeUnRol(rol.getIdRol());
-		
-		if (cantidadPermisos == 0) { 
-			throw new Exception("Error Code: 011-Este usuario, a través de su rol asociado, no tiene permisos dentro del sistema. Comuniquese con el administrador.");
+
+		Integer cantidadPermisos = new PermisoSeguridadDAO().contarDeUnRol(rol
+				.getIdRol());
+
+		if (cantidadPermisos == 0) {
+			throw new Exception(
+					"Error Code: 011-Este usuario, a travÃ©s de su rol asociado, no tiene permisos dentro del sistema. Comuniquese con el administrador.");
 		}
-		
+
 		Long time = Calendar.getInstance().getTimeInMillis();
-		//Estatus is Ip
+		// Estatus is Ip
 		SesionDAO sesionDAO = new SesionDAO();
-		
+
 		sesionDAO.cerrarSesionesByUsuario(usuario);
-		
-		Sesion sesion = new Sesion(usuario, "A", ip, generateAccessToken(usuario.getCorreo()), time, time);
-		
+
+		Sesion sesion = new Sesion(usuario, "A", ip,
+				generateAccessToken(usuario.getCorreo()), time, time);
+
 		sesion = sesionDAO.save(sesion);
-		
+
 		usuario.setClave(null);
-		
+
 		Map<String, Object> parametros = new HashMap<String, Object>();
-		
+
 		parametros.put("idSesion", sesion.getIdSesion());
 		parametros.put("accessToken", sesion.getAccessToken());
 		parametros.put("usuario", usuario);
-		
-		return buildAnswerSuccess("Success Code: 007-Usuario válido", parametros);
+
+		return buildAnswerSuccess("Success Code: 007-Usuario vï¿½lido",
+				parametros);
 	}
-	
+
 	private String generateAccessToken(String correo) {
 		try {
 			MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-			
-			messageDigest.update((Calendar.getInstance().getTimeInMillis() + correo).getBytes());
-			
+
+			messageDigest
+					.update((Calendar.getInstance().getTimeInMillis() + correo)
+							.getBytes());
+
 			byte[] digest = messageDigest.digest();
-			
+
 			String accessToken = "";
-			
+
 			for (byte b : digest) {
-		         accessToken += Integer.toHexString(0xFF & b);
-		    }
-			
+				accessToken += Integer.toHexString(0xFF & b);
+			}
+
 			return accessToken;
 		} catch (NoSuchAlgorithmException e) {
 			return "ABC";
 		}
 	}
+
+	@POST
+	@Path("/loginAndroid")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathLoginAndroid(String data) {
+		Gson gson = new Gson();
+
+		PayloadUsuarioRequest request = gson.fromJson(data,
+				PayloadUsuarioRequest.class);
+
+		try {
+			return checkLoginAndroid(request.getObjeto(),
+					(String) request.getParametro("ip"));
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+	}
+
+	public String checkLoginAndroid(Usuario usuarioToCheck, String ip)
+			throws Exception {
+		Usuario usuario = new UsuarioDAO().findByCorreo(usuarioToCheck
+				.getCorreo());
+
+		if (usuario == null) {
+			throw new Exception(
+					"Error Code: 007-Este usuario no existe en nuestra base de datos.");
+		}
+
+		if (!UtilEncryptor.desencriptar(usuario.getClave()).equals(
+				usuarioToCheck.getClave())) {
+			throw new Exception(
+					"Error Code: 008-La clave suministrada no coincide con la de la base de datos.");
+		}
+
+		if (!usuario.getEstatus().equals("A")) {
+			throw new Exception(
+					"Error Code: 009-Este usuario se encuentra deshabilitado. Comuniquese con el administrador.");
+		}
+
+		Long time = Calendar.getInstance().getTimeInMillis();
+		// Estatus is Ip
+		SesionDAO sesionDAO = new SesionDAO();
+
+		sesionDAO.cerrarSesionesByUsuario(usuario);
+
+		Sesion sesion = new Sesion(usuario, "A", ip,
+				generateAccessToken(usuario.getCorreo()), time, time);
+
+		sesion = sesionDAO.save(sesion);
+
+		Persona persona = new PersonaDAO()
+				.findByUsuario(usuario.getIdUsuario());
+
+		usuario.setClave(null);
+
+		Map<String, Object> parametros = new HashMap<String, Object>();
+
+		parametros.put("idSesion", sesion.getIdSesion());
+		parametros.put("accessToken", sesion.getAccessToken());
+		parametros.put("usuario", usuario);
+		parametros.put("persona", persona);
+
+		return buildAnswerSuccess("Success Code: 007-Usuario vÃ¡lido",
+				parametros);
+	}
+
 }
