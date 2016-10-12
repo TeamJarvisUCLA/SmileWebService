@@ -119,7 +119,7 @@ public class UsuarioServiceM extends FachadaService<Usuario> {
 		parametros.put("accessToken", sesion.getAccessToken());
 		parametros.put("usuario", usuario);
 
-		return buildAnswerSuccess("Success Code: 007-Usuario v�lido",
+		return buildAnswerSuccess("Success Code: 007-Usuario válido",
 				parametros);
 	}
 
