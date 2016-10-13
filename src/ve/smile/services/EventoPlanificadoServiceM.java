@@ -16,13 +16,14 @@ import ve.smile.dto.EventoPlanificado;
 public class EventoPlanificadoServiceM extends FachadaService<EventoPlanificado> {
 	
 	@GET
-	@Path("/consultaEventoPlanificadoPublicable/{publico}/{estatusEvento}")
+	@Path("/consultaEventoPlanificadoPublicable/{publico}/{estatusEvento}/{fechaDesde}/{cant}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public String consultaEventoPlanificadoPublicable(@PathParam("publico") Boolean
-			publico, @PathParam("estatusEvento") Integer estatusEvento) {
+			publico, @PathParam("estatusEvento") Integer estatusEvento, 
+			@PathParam("fechaDesde") Long fechaDesde, @PathParam("cant") Integer cant) {
 		try {
 
-			List<EventoPlanificado> evento = new EventoPlanificadoDAO().findEventosPlanificadoPublico(publico, estatusEvento);
+			List<EventoPlanificado> evento = new EventoPlanificadoDAO().findEventosPlanificadoPublico(publico, estatusEvento, fechaDesde, cant);
 
 			return buildAnswerSuccess(evento, SUCCESS_2);
 
