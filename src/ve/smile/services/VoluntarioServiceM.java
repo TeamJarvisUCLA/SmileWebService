@@ -10,12 +10,14 @@ import javax.ws.rs.core.MediaType;
 
 import lights.core.services.FachadaService;
 import ve.smile.dao.CarteleraDAO;
+import ve.smile.dao.FortalezaDAO;
 import ve.smile.dao.VoluntarioDAO;
 import ve.smile.dto.Cartelera;
 import ve.smile.dto.Voluntario;
 
 @Path("/VoluntarioService")
-public class VoluntarioServiceM extends FachadaService<Voluntario> {
+public class VoluntarioServiceM extends FachadaService<Voluntario>
+{
 
 	@GET
 	@Path("/consultaVoluntariosParametrizado/{sql}")
@@ -32,6 +34,29 @@ public class VoluntarioServiceM extends FachadaService<Voluntario> {
 			return buildAnswerError(e);
 		}
 
+	}
+	
+	// VOLUNTARIOS POR CAPACITACION PLANIFICADA
+	@GET
+	@Path("/consultarPorCapacitacionPlanificada/{idSesion}/{accessToken}/{idCapacitacionPlanificada}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathConsultarPorVoluntario(
+			@PathParam("idSesion") Integer idSesion,
+			@PathParam("accessToken") String accessToken,
+			@PathParam("idCapacitacionPlanificada") Integer idCapacitacionPlanificada)
+	{
+		try
+		{
+			if (validarSesion(idSesion, accessToken))
+			{
+				return buildAnswerSuccess(new VoluntarioDAO().findByCapacitacionPlanificada(idCapacitacionPlanificada), SUCCESS_2);
+			}
+		}
+		catch (Exception e)
+		{
+			return buildAnswerError(e);
+		}
+		return buildAnswerError(new Exception(ERROR_UNKNOWN));
 	}
 	
 }
