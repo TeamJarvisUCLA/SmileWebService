@@ -12,7 +12,7 @@ import ve.smile.dto.Profesion;
 
 @Path("/ProfesionService")
 public class ProfesionServiceM extends FachadaService<Profesion> {
-	
+
 	// VOLUNTARIO
 	@GET
 	@Path("/consultarPorVoluntario/{idSesion}/{accessToken}/{idVoluntario}")
@@ -24,14 +24,13 @@ public class ProfesionServiceM extends FachadaService<Profesion> {
 		try {
 			if (validarSesion(idSesion, accessToken)) {
 				return buildAnswerSuccess(
-						new ProfesionDAO()
-								.findByVoluntario(idVoluntario),
+						new ProfesionDAO().findByVoluntario(idVoluntario),
 						SUCCESS_2);
 			}
 		} catch (Exception e) {
 			return buildAnswerError(e);
 		}
-			return buildAnswerError(new Exception(ERROR_UNKNOWN));
+		return buildAnswerError(new Exception(ERROR_UNKNOWN));
 	}
 
 	@GET
@@ -41,8 +40,41 @@ public class ProfesionServiceM extends FachadaService<Profesion> {
 			@PathParam("idVoluntario") Integer idVoluntario) {
 		try {
 			return buildAnswerSuccess(
-					new ProfesionDAO()
-							.findByVoluntario(idVoluntario),
+					new ProfesionDAO().findByVoluntario(idVoluntario),
+					SUCCESS_2);
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+	}
+
+	// VOLUNTARIO
+	@GET
+	@Path("/consultarPorTrabajador/{idSesion}/{accessToken}/{idVoluntario}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathConsultarPorTrabajador(
+			@PathParam("idSesion") Integer idSesion,
+			@PathParam("accessToken") String accessToken,
+			@PathParam("idVoluntario") Integer idVoluntario) {
+		try {
+			if (validarSesion(idSesion, accessToken)) {
+				return buildAnswerSuccess(
+						new ProfesionDAO().findByVoluntario(idVoluntario),
+						SUCCESS_2);
+			}
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+		return buildAnswerError(new Exception(ERROR_UNKNOWN));
+	}
+
+	@GET
+	@Path("/consultarPorTrabajador/{idTrabajador}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathConsultarPorTrabajadorSinSession(
+			@PathParam("idTrabajador") Integer idTrabajador) {
+		try {
+			return buildAnswerSuccess(
+					new ProfesionDAO().findByTrabajador(idTrabajador),
 					SUCCESS_2);
 		} catch (Exception e) {
 			return buildAnswerError(e);
