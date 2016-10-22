@@ -10,7 +10,9 @@ import javax.ws.rs.core.MediaType;
 
 import lights.core.services.FachadaService;
 import ve.smile.dao.EventoPlanificadoDAO;
+import ve.smile.dao.VoluntarioDAO;
 import ve.smile.dto.EventoPlanificado;
+import ve.smile.dto.Voluntario;
 
 @Path("/EventoPlanificadoService")
 public class EventoPlanificadoServiceM extends FachadaService<EventoPlanificado> {
@@ -48,5 +50,24 @@ public class EventoPlanificadoServiceM extends FachadaService<EventoPlanificado>
 		}
 
 	}
+	
+	
+	@GET
+	@Path("/consultaEventosPlanificadosParametrizado/{sql}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String consultaEventosPlanificadosParametrizado(@PathParam("sql") String
+			sql) {
+		try {
+
+			List<EventoPlanificado> eventosPlanificados = new EventoPlanificadoDAO().consultaEventosPlanificadosParametrizado(sql);
+
+			return buildAnswerSuccess(eventosPlanificados, SUCCESS_2);
+
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+
+	}
+
 
 }
