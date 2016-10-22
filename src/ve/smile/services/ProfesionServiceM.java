@@ -49,16 +49,16 @@ public class ProfesionServiceM extends FachadaService<Profesion> {
 
 	// VOLUNTARIO
 	@GET
-	@Path("/consultarPorTrabajador/{idSesion}/{accessToken}/{idVoluntario}")
+	@Path("/consultarPorTrabajador/{idSesion}/{accessToken}/{idTrabajador}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public String pathConsultarPorTrabajador(
 			@PathParam("idSesion") Integer idSesion,
 			@PathParam("accessToken") String accessToken,
-			@PathParam("idVoluntario") Integer idVoluntario) {
+			@PathParam("idTrabajador") Integer idTrabajador) {
 		try {
 			if (validarSesion(idSesion, accessToken)) {
 				return buildAnswerSuccess(
-						new ProfesionDAO().findByVoluntario(idVoluntario),
+						new ProfesionDAO().findByTrabajador(idTrabajador),
 						SUCCESS_2);
 			}
 		} catch (Exception e) {
