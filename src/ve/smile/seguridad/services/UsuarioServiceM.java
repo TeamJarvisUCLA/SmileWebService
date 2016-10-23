@@ -4,7 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.GET;
@@ -16,13 +15,8 @@ import javax.ws.rs.core.MediaType;
 
 import lights.core.encryptor.UtilEncryptor;
 import lights.core.services.FachadaService;
-import ve.smile.dao.MultimediaDAO;
-import ve.smile.dao.NotificacionUsuarioDAO;
 import ve.smile.dao.PersonaDAO;
-import ve.smile.dto.Multimedia;
-import ve.smile.dto.NotificacionUsuario;
 import ve.smile.dto.Persona;
-import ve.smile.enums.EstatusNotificacionEnum;
 import ve.smile.seguridad.dao.PermisoSeguridadDAO;
 import ve.smile.seguridad.dao.SesionDAO;
 import ve.smile.seguridad.dao.UsuarioDAO;
@@ -105,28 +99,6 @@ public class UsuarioServiceM extends FachadaService<Usuario> {
 			throw new Exception(
 					"Error Code: 011-Este usuario, a través de su rol asociado, no tiene permisos dentro del sistema. Comuniquese con el administrador.");
 		}
-
-		Persona persona = new PersonaDAO()
-				.findByUsuario(usuario.getIdUsuario());
-		if (cantidadPermisos == 0) {
-			throw new Exception(
-					"Error Code: 011-Este usuario, no esta asociado en el sistema. Comuniquese con el administrador.");
-		}
-		usuario.setPersona(persona);
-		if (persona.getFkMultimedia() != null) {
-			Multimedia multimedia = new MultimediaDAO().find(persona
-					.getFkMultimedia().getIdMultimedia());
-			persona.setFkMultimedia(multimedia);
-		}
-
-		List<NotificacionUsuario> notificacionUsuarios = new NotificacionUsuarioDAO()
-				.findByUsuario(usuario.getIdUsuario());
-		usuario.setNotificacionUsuarios(notificacionUsuarios);
-
-		List<NotificacionUsuario> notificacionUsuariosPendientes = new NotificacionUsuarioDAO()
-				.findByUsuarioEstatus(usuario.getIdUsuario(),
-						EstatusNotificacionEnum.PENDIENTE.ordinal());
-		usuario.setNotificacionUsuariosPendientes(notificacionUsuariosPendientes);
 
 		Long time = Calendar.getInstance().getTimeInMillis();
 		// Estatus is Ip
