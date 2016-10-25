@@ -23,9 +23,9 @@ import com.google.gson.Gson;
 @Path("/PadrinoService")
 public class PadrinoServiceM extends FachadaService<Padrino> {
 	@GET
-	@Path("/consultaPadrinosParametrizado/{sql}")
+	@Path("/consultaPadrinoParametrizado/{sql}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String consultaPadrinosParametrizado(@PathParam("sql") String sql) {
+	public String consultaPadrinoParametrizado(@PathParam("sql") String sql) {
 		try {
 			List<Padrino> padrinos = new PadrinoDAO()
 					.consultaPadrinosParametrizado(sql);
