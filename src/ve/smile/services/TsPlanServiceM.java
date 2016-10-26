@@ -7,7 +7,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import lights.core.services.FachadaService;
 import ve.smile.dao.TsPlanDAO;
 import ve.smile.dto.TsPlan;
@@ -30,4 +29,23 @@ public class TsPlanServiceM extends FachadaService<TsPlan> {
 		}
 
 	}
+	
+	
+	@GET
+	@Path("/consultaTrabajoSocialPlanificadosParametrizado/{sql}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String consultaTrabajoSocialPlanificadosParametrizado(@PathParam("sql") String
+			sql) {
+		try {
+
+			List<TsPlan> listTsPlans = new TsPlanDAO().consultaTrabajoSocialPlanificadosParametrizado(sql);
+
+			return buildAnswerSuccess(listTsPlans, SUCCESS_2);
+
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+
+	}
+
 }

@@ -7,12 +7,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import lights.core.services.FachadaService;
 import ve.smile.dao.EventoPlanificadoDAO;
-import ve.smile.dao.VoluntarioDAO;
 import ve.smile.dto.EventoPlanificado;
-import ve.smile.dto.Voluntario;
 
 @Path("/EventoPlanificadoService")
 public class EventoPlanificadoServiceM extends FachadaService<EventoPlanificado> {
