@@ -96,7 +96,7 @@ public class PersonaServiceM extends FachadaService<Persona> {
 	@GET
 	@Path("/find/pagination/sinUsuario{orderby:(/orderby/[^/]+?)?}/{idSesion}/{accessToken}/{count}/{page}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String pathConsultarPersonasPaginacion(
+	public String pathConsultarPersonasSinUsuarioPaginacion(
 			@PathParam("idSesion") Integer idSesion,
 			@PathParam("accessToken") String accessToken,
 			@PathParam("count") Integer count, @PathParam("page") Integer page,
@@ -119,4 +119,82 @@ public class PersonaServiceM extends FachadaService<Persona> {
 		return buildAnswerError(new Exception(ERROR_UNKNOWN));
 	}
 
+	@GET
+	@Path("/find/pagination/sinUsuarioMovil{orderby:(/orderby/[^/]+?)?}/{idSesion}/{accessToken}/{count}/{page}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathConsultarPersonasSinUsuarioMovilPaginacion(
+			@PathParam("idSesion") Integer idSesion,
+			@PathParam("accessToken") String accessToken,
+			@PathParam("count") Integer count, @PathParam("page") Integer page,
+			@PathParam("orderby") String orderBy) {
+
+		try {
+			if (validarSesion(idSesion, accessToken)) {
+
+				Search search = new Search();
+
+				search.addFilterNull("rolMovil");
+				search.addFilterNotNull("fkUsuario");
+
+				return consultarPaginacion(idSesion, count, page, search,
+						orderBy);
+			}
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+
+		return buildAnswerError(new Exception(ERROR_UNKNOWN));
+	}
+
+	@GET
+	@Path("/find/pagination/conUsuarioMovil{orderby:(/orderby/[^/]+?)?}/{idSesion}/{accessToken}/{count}/{page}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathConsultarPersonaConUsuarioMovilPaginacion(
+			@PathParam("idSesion") Integer idSesion,
+			@PathParam("accessToken") String accessToken,
+			@PathParam("count") Integer count, @PathParam("page") Integer page,
+			@PathParam("orderby") String orderBy) {
+
+		try {
+			if (validarSesion(idSesion, accessToken)) {
+
+				Search search = new Search();
+
+				search.addFilterNotNull("rolMovil");
+				search.addFilterNotNull("fkUsuario");
+
+				return consultarPaginacion(idSesion, count, page, search,
+						orderBy);
+			}
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+
+		return buildAnswerError(new Exception(ERROR_UNKNOWN));
+	}
+
+	@GET
+	@Path("/find/pagination/conUsuario{orderby:(/orderby/[^/]+?)?}/{idSesion}/{accessToken}/{count}/{page}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathConsultarPersonaConUsuarioPaginacion(
+			@PathParam("idSesion") Integer idSesion,
+			@PathParam("accessToken") String accessToken,
+			@PathParam("count") Integer count, @PathParam("page") Integer page,
+			@PathParam("orderby") String orderBy) {
+
+		try {
+			if (validarSesion(idSesion, accessToken)) {
+
+				Search search = new Search();
+				search.addFilterNotNull("fkUsuario");
+
+				return consultarPaginacion(idSesion, count, page, search,
+						orderBy);
+			}
+		} catch (Exception e) {
+			return buildAnswerError(e);
+		}
+
+		return buildAnswerError(new Exception(ERROR_UNKNOWN));
+	}
 }
