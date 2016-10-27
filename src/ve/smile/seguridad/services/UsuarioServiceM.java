@@ -209,5 +209,38 @@ public class UsuarioServiceM extends FachadaService<Usuario> {
 		return buildAnswerSuccess("Success Code: 007-Usuario válido",
 				parametros);
 	}
+	
+	@POST
+	@Path("/recuperar")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String pathRecuperar(String data) {
+	Gson gson = new Gson();
+
+	PayloadUsuarioRequest request = gson.fromJson(data,
+	PayloadUsuarioRequest.class);
+
+	try {
+	Usuario usuario = checkUsuario(request.getObjeto());
+	return buildAnswerSuccess(usuario, SUCCESS_2);
+
+	} catch (Exception e) {
+	return buildAnswerError(e);
+	}
+	}
+
+	public Usuario checkUsuario(Usuario usuarioToCheck) throws Exception {
+	Usuario usuario = new UsuarioDAO().findByCorreo(usuarioToCheck
+	.getCorreo());
+
+	if (usuario == null) {
+	throw new Exception(
+	"Error Code: 007-Este usuario no existe en nuestra base de datos.");
+	}
+
+	usuario.setClave(UtilEncryptor.encriptar("123456"));
+	usuario =  new UsuarioDAO().merge(usuario);
+	return usuario;
+
+	}
 
 }
